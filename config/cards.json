@@ -1,0 +1,200 @@
+{
+    "cards_data": [
+        {
+            "id": 0,
+            "card_title": "Dynamic ID",
+            "page_title": "Dynamic ID",
+            "description": "Make sure you are not recording dynamic IDs of elements",
+            "url": "dynamicid"
+        },
+        {
+            "id": 1,
+            "card_title": "Class Attribute",
+            "page_title": "Class Attribute",
+            "description": "Check that class attribute based XPath is well formed",
+            "url": "classattr"
+        },
+        {
+            "id": 2,
+            "card_title": "Hidden Layers",
+            "page_title": "Hidden Layers",
+            "description": "Verify that your test does not interact with elements invisible because of z-order",
+            "url": "hiddenlayers"
+        },
+        {
+            "id": 3,
+            "card_title": "Load Delay",
+            "page_title": "Load Delays",
+            "description": "Ensure that a test is capable of waiting for a page to load",
+            "url": "loaddelay"
+        },
+        {
+            "id": 4,
+            "card_title": "AJAX Data",
+            "page_title": "AJAX Data",
+            "description": "Some elements may appear on a page after loading data with AJAX request",
+            "url": "ajax"
+        },
+        {
+            "id": 5,
+            "card_title": "Client Side Delay",
+            "page_title": "Client Side Delay",
+            "description": "Some elements may appear after client-side time consuming JavaScript calculations",
+            "url": "clientdelay"
+        },
+        {
+            "id": 6,
+            "card_title": "Click",
+            "page_title": "Click",
+            "description": "Event based click on an element may not always work",
+            "url": "click"
+        },
+        {
+            "id": 7,
+            "card_title": "Text Input",
+            "page_title": "Text Input",
+            "description": "Entering text into an edit field may not have effect",
+            "url": "textinput"
+        },
+        {
+            "id": 8,
+            "card_title": "Scrollbars",
+            "page_title": "Scrollbars",
+            "description": "Scrolling an element into view may be a tricky task",
+            "url": "scrollbars"
+        },
+        {
+            "id": 9,
+            "card_title": "Dynamic Table",
+            "page_title": "Dynamic Table",
+            "description": "Verify cell value in a dynamic table",
+            "url": "dynamictable"
+        },
+        {
+            "id": 10,
+            "card_title": "Verify Text",
+            "page_title": "Verify Text",
+            "description": "Finding an element by displayed text has nuances",
+            "url": "verifytext"
+        },
+        {
+            "id": 11,
+            "card_title": "Progress Bar",
+            "page_title": "Progress Bar",
+            "description": "Follow the progress of a lengthy process and continue upon completion",
+            "url": "progressbar"
+        },
+        {
+            "id": 12,
+            "card_title": "Visibility",
+            "page_title": "Visibility",
+            "description": "Check if element is visible on screen",
+            "url": "visibility"
+        },
+        {
+            "id": 13,
+            "card_title": "Sample App",
+            "page_title": "Sample App",
+            "description": "Demo application with dynamically generated element attributes",
+            "url": "sampleapp"
+        },
+        {
+            "id": 14,
+            "card_title": "Mouse Over",
+            "page_title": "Mouse Over",
+            "description": "Placing mouse over an element may change DOM and make the element unavailable",
+            "url": "mouseover"
+        },
+        {
+            "id": 15,
+            "card_title": "Non-Breaking Space",
+            "page_title": "Non-Breaking Space",
+            "description": "Non-breaking space looks like a normal one on screen. It may lead to confusion when building XPath",
+            "url": "nbsp"
+        },
+        {
+            "id": 16,
+            "card_title": "Overlapped Element",
+            "page_title": "Overlapped Element",
+            "description": "Make element visible to enter text",
+            "url": "overlapped"
+        },
+        {
+            "id": 17,
+            "card_title": "Shadow DOM",
+            "page_title": "Shadow DOM",
+            "description": "Look inside Shadow DOM component",
+            "url": "shadowdom"
+        },
+        {
+            "id": 18,
+            "card_title": "Alerts",
+            "page_title": "Alerts",
+            "description": "Accept alerts, confirmations and prompts",
+            "url": "alerts"
+        },
+        {
+            "id": 19,
+            "card_title": "File Upload",
+            "page_title": "File Upload",
+            "description": "Upload files",
+            "url": "upload"
+        },
+        {
+            "id": 20,
+            "card_title": "Animated Button",
+            "page_title": "Animated Button",
+            "description": "Wait for animation to stop before clicking a button",
+            "url": "animation"
+        },
+        {
+            "id": 21,
+            "card_title": "Disabled Input",
+            "page_title": "Disabled Input",
+            "description": "Wait for edit field to become enabled",
+            "url": "disabledinput"
+        },
+        {
+            "id": 22,
+            "card_title": "Auto Wait",
+            "page_title": "Auto Wait",
+            "description": "Wait for an element to become interactable",
+            "url": "autowait"
+        },
+        {
+            "id": 23,
+            "card_title": "Frames",
+            "page_title": "Frames",
+            "description": "Find elements inside nested frames",
+            "url": "frames"
+        },
+        {
+            "id": 24,
+            "card_title": "Geo Location",
+            "page_title": "Geo Location",
+            "description": "Handle browser permission prompts for geolocation access",
+            "url": "geolocation"
+        },
+        {
+            "id": 25,
+            "card_title": "Clear Input",
+            "page_title": "Clear Input",
+            "description": "Clear pre-filled text from various types of input controls",
+            "url": "clearinput"
+        },
+        {
+            "id": 26,
+            "card_title": "Scroll to Click",
+            "page_title": "Scroll to Click",
+            "description": "Scroll elements into view before clicking including nested scroll containers",
+            "url": "scrolltoclick"
+        },
+        {
+            "id": 27,
+            "card_title": "CSS Selectors",
+            "page_title": "CSS Selectors",
+            "description": "Locate elements using various CSS selectors and pierce through nested Shadow DOM",
+            "url": "cssselectors"
+        }
+    ]
+}

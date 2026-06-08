@@ -1,1 +1,1 @@
-# Playwright_Demo_2
+Autotests for http://uitestingplayground.com
