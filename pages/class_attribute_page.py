@@ -13,17 +13,17 @@ class ClassAttributePage(BasePage):
         self.const = ClassAttributeConst()
 
     def check_page_text(self) -> bool:
-        h3 = self.locators.h3_title_locator
+        h3 = self.locators.h3_locator
         txt1 = self.locators.text_locator(1)
         html = self.locators.html_code_locator
         txt2 = self.locators.text_locator(2)
         bash1 = self.locators.bash_code_locator(1)
         txt3 = self.locators.text_locator(3)
         bash2 = self.locators.bash_code_locator(2)
-        h4_title1 = self.locators.h4_title1_locator
-        bullet1 = self.locators.bullet_locator(1)
-        bullet2 = self.locators.bullet_locator(2)
-        h4_title2 = self.locators.h4_title2_locator
+        h4_title1 = self.locators.h4_title_locator(1)
+        bullet1 = self.locators.bullet_locators(1)
+        bullet2 = self.locators.bullet_locators(2)
+        h4_title2 = self.locators.h4_title_locator(2)
         btns = [self.locators.green_btn_locator,
                 self.locators.blue_btn_locator,
                 self.locators.orange_btn_locator]

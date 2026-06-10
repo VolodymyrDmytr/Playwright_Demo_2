@@ -13,12 +13,12 @@ class DynamicIdPage(BasePage):
         self.const = DynamicIdConst()
 
     def check_page_text(self) -> bool:
-        h3_locator = self.locators.h3_title_locator
+        h3_locator = self.locators.h3_locator
         text_locator = self.locators.text_locator
-        h4_1st_locator = self.locators.h4_title1_locator
-        h4_2nd_locator = self.locators.h4_title2_locator
-        bullet_1st = self.locators.bullet_locator(1)
-        bullet_2nd = self.locators.bullet_locator(2)
+        h4_1st_locator = self.locators.h4_title_locator(1)
+        h4_2nd_locator = self.locators.h4_title_locator(2)
+        bullet_1st = self.locators.bullet_locators(1)
+        bullet_2nd = self.locators.bullet_locators(2)
         btn = self.locators.button_locator
 
         expect(h3_locator).to_have_text(self.const.h3_title)

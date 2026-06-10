@@ -1,16 +1,16 @@
 from playwright.sync_api import Page, expect
 
 from pages.base_page import BasePage
-from config.locators import HiddenLayersLocators
-from config.const import HiddenLayersConst
+from config.locators import AjaxDataLocators
+from config.const import AjaxDataConst
 
 
-class HiddenLayers(BasePage):
+class AjaxData(BasePage):
 
     def __init__(self, page: Page):
         super().__init__(page)
-        self.locators = HiddenLayersLocators(self.page)
-        self.const = HiddenLayersConst()
+        self.locators = AjaxDataLocators(self.page)
+        self.const = AjaxDataConst()
 
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
@@ -33,6 +33,17 @@ class HiddenLayers(BasePage):
         locator = self.locators.btn_locator
         locator.click()
 
-    def check_is_success(self) -> bool:
-        locator = self.locators.success_locator
-        expect(locator).to_have_attribute('style', 'z-index: 2;')
+    def check_success_text(self) -> bool:
+        locator = self.locators.success_txt_locator
+        expect(locator).to_have_text(self.const.success_text,
+                                     timeout=self.const.timeout)
+
+    def check_response(self) -> bool:
+        locator = self.locators.btn_locator
+        with self.page.expect_response('**/ajaxdata') as response_info:
+            locator.click()
+
+        response = response_info.value
+
+        assert response.ok
+        assert response.text() == self.const.success_text

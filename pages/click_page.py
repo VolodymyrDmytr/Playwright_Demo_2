@@ -1,16 +1,16 @@
 from playwright.sync_api import Page, expect
 
 from pages.base_page import BasePage
-from config.locators import HiddenLayersLocators
-from config.const import HiddenLayersConst
+from config.locators import ClickLocators
+from config.const import ClickConst
 
 
-class HiddenLayers(BasePage):
+class ClickPage(BasePage):
 
     def __init__(self, page: Page):
         super().__init__(page)
-        self.locators = HiddenLayersLocators(self.page)
-        self.const = HiddenLayersConst()
+        self.locators = ClickLocators(self.page)
+        self.const = ClickConst()
 
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
@@ -33,6 +33,6 @@ class HiddenLayers(BasePage):
         locator = self.locators.btn_locator
         locator.click()
 
-    def check_is_success(self) -> bool:
-        locator = self.locators.success_locator
-        expect(locator).to_have_attribute('style', 'z-index: 2;')
+    def click_on_success_btn(self) -> None:
+        locator = self.locators.success_btn_locator
+        locator.click()

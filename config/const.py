@@ -54,6 +54,7 @@ class CardData:
 
 class BaseConstants(CardData):
     base_url = 'http://uitestingplayground.com/'
+    timeout = 25000
 
     def url_by_title(
             self,
@@ -73,6 +74,11 @@ class BaseConstants(CardData):
                 return f"{self.base_url}{cards[i]['url']}"
 
 
+class PageConst:
+    h4_title1 = 'Scenario'
+    h4_title2 = 'Playground'
+
+
 class HomePageConst(BaseConstants):
     title_on_page = 'UI Test Automation Playground'
     h1_text = 'UI Test AutomationPlayground'
@@ -88,7 +94,7 @@ class HomePageConst(BaseConstants):
     img_text = "Rubik's Cube is licensed under CC 4.0 BY-NC"
 
 
-class DynamicIdConst(BaseConstants):
+class DynamicIdConst(BaseConstants, PageConst):
     h3_title = 'Dynamic ID'
     text = ('Modern applications often generate dynamic IDs for elements. In '
             + 'this case ID is not a reliable attribute for using in element '
@@ -96,15 +102,13 @@ class DynamicIdConst(BaseConstants):
             + 'this results in tests broken from the very beginning. An '
             + 'automation tool needs a way to instruct it to skip dynamic IDs '
             + 'when XPath is generated for an element.')
-    h4_title1 = 'Scenario'
     bullet1 = 'Record button click.'
     bullet2 = ('Then execute your test to make sure that ID is not used for '
                + 'button identification.')
-    h4_title2 = 'Playground'
     btn_text = 'Button with Dynamic ID'
 
 
-class ClassAttributeConst(BaseConstants):
+class ClassAttributeConst(BaseConstants, PageConst):
     h3_title = 'Class Attribute'
     text1 = ('Class attribute of an element may contain more than one class '
              + 'reference. E.g.')
@@ -115,16 +119,14 @@ class ClassAttributeConst(BaseConstants):
     text3 = 'Correct variant is'
     bash2 = ("//button[contains(concat(' ', normalize-space(@class), ' '), ' "
              + " btn-primary ')]")
-    h4_title1 = 'Scenario'
     bullet1 = 'Record primary (blue) button click and press ok in alert popup.'
     bullet2 = ('Then execute your test to make sure that it can identify the '
                + 'button using btn-primary class.')
-    h4_title2 = 'Playground'
     btn_text = 'Button'
     alert_text = 'Primary button pressed'
 
 
-class HiddenLayersConst(BaseConstants):
+class HiddenLayersConst(BaseConstants, PageConst):
     h3 = 'Hidden Layers'
     text = ('Some applications use DOM caching techniques. For example, if a '
             + 'user follows a multi step process and each step requires '
@@ -136,23 +138,61 @@ class HiddenLayersConst(BaseConstants):
             + ' tree but overlapped with another layer of elements. In this '
             + 'case it is important that a test does not interact with '
             + 'inactive elements becasue they are invisible to a user.')
-    h4_title1 = 'Scenario'
     bullet1 = ('Record button click and then duplicate the button click step '
                + 'in your test.')
     bullet2 = ('Execute the test to make sure that green button can not be hit'
                + ' twice.')
-    h4_title2 = 'Playground'
     btn_text = 'Button'
 
 
-class LoadDelaysConst(BaseConstants):
+class LoadDelaysConst(BaseConstants, PageConst):
     h3 = 'Load Delays'
     text = ('Server response may often come with an unpredictable delay. So a'
             + ' test must be able to patiently wait for page loaded event from'
             + ' a browser.')
-    h4_title1 = 'Scenario'
     bullet1 = ('Navigate to Home page and record Load Delays link click and'
                + ' button click on this page.')
     bullet2 = 'Then play the test. It should wait until page is loaded.'
-    h4_title2 = 'Playground'
     btn_text = 'Button Appearing After Delay'
+
+
+class AjaxDataConst(BaseConstants, PageConst):
+    h3 = 'AJAX Data'
+    text = ('An element may appear on a page after processing of an AJAX '
+            + 'request to a web server. A test should be able to wait for an'
+            + ' element to show up.')
+    bullet1 = ('Record the following steps. Press the button below and wait '
+               + 'for data to appear (15 seconds), click on text of the loaded'
+               + ' label.')
+    bullet2 = ('Then execute your test to make sure it waits for label text to'
+               + ' appear.')
+    btn_text = 'Button Triggering AJAX Request'
+    success_text = 'Data loaded with AJAX get request.'
+
+
+class ClientSideDelayConst(BaseConstants, PageConst):
+    h3 = 'Client Side Delay'
+    text = ('An element may appaear on a page after heavy JavaScript '
+            + 'processing on a client side. A test should be able to wait for '
+            + 'an element to show up.')
+    bullet1 = ('Record the following steps. Press the button below and wait '
+               + 'for data to appear (15 seconds), click on text of the loaded'
+               + ' label.')
+    bullet2 = ('Then execute your test to make sure it waits for label text '
+               + 'to appear.')
+    btn_text = 'Button Triggering Client Side Logic'
+    success_text = 'Data calculated on the client side.'
+
+
+class ClickConst(BaseConstants, PageConst):
+    h3 = 'Click'
+    text = ('Physical mouse click and DOM event emulated click are differently'
+            + ' handled by browsers. There are still cases, with sometimes'
+            + ' hardly identifiable reasons, when an event based click does '
+            + 'not work. The solution for this problem is emulating physical '
+            + 'mouse click. This page is specifically designed to ignore event'
+            + ' based click.')
+    bullet1 = 'Record button click. The button becomes green after clicking.'
+    bullet2 = ('Then execute your test to make sure that it is able to click '
+               + 'the button.')
+    btn_text = 'Button That Ignores DOM Click Event'

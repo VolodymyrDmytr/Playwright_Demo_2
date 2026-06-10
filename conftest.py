@@ -1,11 +1,15 @@
 import pytest
 from playwright.sync_api import Page
 
+# Import classes
 from pages.home_page import HomePage
 from pages.dynamic_id_page import DynamicIdPage
 from pages.class_attribute_page import ClassAttributePage
 from pages.hidden_layers_page import HiddenLayers
 from pages.load_delays_page import LoadDelays
+from pages.ajax_data import AjaxData
+from pages.client_side_delay_page import ClientSideDelayPage
+from pages.click_page import ClickPage
 
 
 @pytest.fixture
@@ -50,3 +54,30 @@ def load(page: Page):
     load.click_on_link('Load Delay')
 
     yield load
+
+
+@pytest.fixture
+def ajax(page: Page):
+    ajax = AjaxData(page)
+    ajax.open_base_page()
+    ajax.click_on_link('AJAX Data')
+
+    yield ajax
+
+
+@pytest.fixture
+def delay(page: Page):
+    delay = ClientSideDelayPage(page)
+    delay.open_base_page()
+    delay.click_on_link('Client Side Delay')
+
+    yield delay
+
+
+@pytest.fixture
+def click(page: Page):
+    click = ClickPage(page)
+    click.open_base_page()
+    click.click_on_link('Click')
+
+    yield click

@@ -21,6 +21,34 @@ class BaseLocators:
         return self.page.get_by_role('link', name=data, exact=True)
 
 
+class PageLocators(BaseLocators):
+
+    def __init__(self, page: Page):
+        self.page = page
+
+    @property
+    def h3_locator(self) -> Locator:
+        return self.page.locator('//h3')
+
+    @property
+    def text_locator(self) -> Locator:
+        return self.page.locator('//p')
+
+    def h4_title_locator(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('//h4').nth(data)
+
+    def bullet_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data += 1
+        return self.page.locator('//li').nth(data)
+
+
 class HomePageLocators(BaseLocators):
 
     def __init__(self, page: Page):
@@ -73,7 +101,7 @@ class HomePageLocators(BaseLocators):
         return self.page.locator('.text-center')
 
 
-class DynamicIdLoators(BaseLocators):
+class DynamicIdLoators(PageLocators):
 
     def __init__(self, page: Page):
         super().__init__(page)
@@ -82,32 +110,8 @@ class DynamicIdLoators(BaseLocators):
     def button_locator(self) -> Locator:
         return self.page.locator('.btn-primary')
 
-    @property
-    def h3_title_locator(self) -> Locator:
-        return self.page.locator('//h3')
 
-    @property
-    def text_locator(self) -> Locator:
-        return self.page.locator('//p')
-
-    @property
-    def _h4_title_locators(self) -> Locator:
-        return self.page.locator('//h4')
-
-    @property
-    def h4_title1_locator(self) -> Locator:
-        return self._h4_title_locators.nth(0)
-
-    @property
-    def h4_title2_locator(self) -> Locator:
-        return self._h4_title_locators.nth(1)
-
-    def bullet_locator(self, number) -> Locator:
-        number += 1
-        return self.page.locator('//li').nth(number)
-
-
-class ClassAttributeLocators(BaseLocators):
+class ClassAttributeLocators(PageLocators):
 
     def __init__(self, page: Page):
         super().__init__(page)
@@ -124,32 +128,12 @@ class ClassAttributeLocators(BaseLocators):
     def orange_btn_locator(self) -> Locator:
         return self.page.locator('.btn-warning')
 
-    @property
-    def h3_title_locator(self) -> Locator:
-        return self.page.locator('//h3')
-
     def text_locator(
             self,
             data: int,
     ) -> Locator | bool:
         data -= 1
         return self.page.locator('//p').nth(data)
-
-    @property
-    def _h4_title_locators(self) -> Locator:
-        return self.page.locator('//h4')
-
-    @property
-    def h4_title1_locator(self) -> Locator:
-        return self._h4_title_locators.nth(0)
-
-    @property
-    def h4_title2_locator(self) -> Locator:
-        return self._h4_title_locators.nth(1)
-
-    def bullet_locator(self, number) -> Locator:
-        number += 1
-        return self.page.locator('//li').nth(number)
 
     @property
     def html_code_locator(self) -> Locator:
@@ -164,7 +148,7 @@ class ClassAttributeLocators(BaseLocators):
             "//code[contains(@class, 'language-bash')]").nth(data)
 
 
-class HiddenLayersLocators(BaseLocators):
+class HiddenLayersLocators(PageLocators):
 
     def __init__(self, page: Page):
         super().__init__(page)
@@ -177,30 +161,18 @@ class HiddenLayersLocators(BaseLocators):
     def success_locator(self) -> Locator:
         return self.page.locator('.spa-view').nth(1)
 
-    @property
-    def h3_title_locator(self) -> Locator:
-        return self.page.locator('//h3')
+
+class LoadDelaysLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
 
     @property
-    def text_locator(self) -> Locator:
-        return self.page.locator('//p')
-
-    def h4_title_locator(
-            self,
-            data: int,
-    ) -> Locator:
-        data -= 1
-        return self.page.locator('//h4').nth(data)
-
-    def bullets_locator(
-            self,
-            data: int,
-    ) -> Locator:
-        data += 1
-        return self.page.locator('//li').nth(data)
+    def btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
 
 
-class LoadDelaysLocators(BaseLocators):
+class AjaxDataLocators(PageLocators):
 
     def __init__(self, page: Page):
         super().__init__(page)
@@ -210,23 +182,33 @@ class LoadDelaysLocators(BaseLocators):
         return self.page.locator('.btn-primary')
 
     @property
-    def h3_locator(self) -> Locator:
-        return self.page.locator('//h3')
+    def success_txt_locator(self) -> Locator:
+        return self.page.locator('.bg-success')
+
+
+class ClientSideDelayLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
 
     @property
-    def text_locator(self) -> Locator:
-        return self.page.locator('//p')
+    def btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
 
-    def h4_title_locator(
-            self,
-            data: int,
-    ) -> Locator:
-        data -= 1
-        return self.page.locator('//h4').nth(data)
+    @property
+    def success_txt_locator(self) -> Locator:
+        return self.page.locator('.bg-success')
 
-    def bullet_locators(
-            self,
-            data: int,
-    ) -> Locator:
-        data += 1
-        return self.page.locator('//li').nth(data)
+
+class ClickLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
+
+    @property
+    def success_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-success')
