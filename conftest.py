@@ -10,6 +10,9 @@ from pages.load_delays_page import LoadDelays
 from pages.ajax_data import AjaxData
 from pages.client_side_delay_page import ClientSideDelayPage
 from pages.click_page import ClickPage
+from pages.text_input_page import TextInputPage
+from pages.scrollbars_page import ScrollbarsPage
+from pages.dynamic_table_page import DynamicTablePage
 
 
 @pytest.fixture
@@ -81,3 +84,30 @@ def click(page: Page):
     click.click_on_link('Click')
 
     yield click
+
+
+@pytest.fixture
+def text(page: Page):
+    text = TextInputPage(page)
+    text.open_base_page()
+    text.click_on_link('Text Input')
+
+    yield text
+
+
+@pytest.fixture
+def scroll(page: Page):
+    scroll = ScrollbarsPage(page)
+    scroll.open_base_page()
+    scroll.click_on_link('Scrollbars')
+
+    yield scroll
+
+
+@pytest.fixture
+def table(page: Page):
+    scroll = DynamicTablePage(page)
+    scroll.open_base_page()
+    scroll.click_on_link('Dynamic Table')
+
+    yield scroll

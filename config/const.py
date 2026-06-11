@@ -196,3 +196,46 @@ class ClickConst(BaseConstants, PageConst):
     bullet2 = ('Then execute your test to make sure that it is able to click '
                + 'the button.')
     btn_text = 'Button That Ignores DOM Click Event'
+
+
+class TextInputConst(BaseConstants, PageConst):
+    h3 = 'Text Input'
+    text = ('Entering text with physical keyboard can be different from '
+            + 'sending DOM events to an element. This page is specifically '
+            + 'desined to illustrate this problem. There are cases when '
+            + 'attempts to set a text via DOM events lead to nowhere and the '
+            + 'only way to proceed is to emulate real keyboard input at '
+            + 'OS level.')
+    bullet1 = ('Record setting text into the input field and pressing the '
+               + 'button.')
+    bullet2 = ('Then execute your test to make sure that the button name '
+               + 'is changing.')
+    field_title = 'Set New Button Name'
+    field_placeholder = 'MyButton'
+    btn_text = "Button That Should Change it's Name Based on Input Value"
+
+
+class ScrollbarsConst(BaseConstants, PageConst):
+    h3 = 'Scrollbars'
+    text = ('An application may use native or custom scrollbars and some '
+            + 'elements may be out of view. A test scenario may require to '
+            + 'ensure that an element is visible on screen and this may '
+            + 'require scrolling.')
+    bullet1 = 'Find a button in the scroll view and record button click.'
+    bullet2 = ('Update your test to automatically scroll the button into a '
+               + 'visible area.')
+    bullet3 = 'Then execute your test to make sure it works.'
+    btn_text = 'Hiding Button'
+
+
+class DynamicTableConst(BaseConstants, PageConst):
+    h3 = 'Dynamic Table'
+    text = ('Below you see a table where columns and rows change their '
+            + 'position upon page reload. Values in cells are random. The '
+            + 'table is based on DIVs with ARIA attributes. See WAI-ARIA table'
+            + ' design pattern for details.')
+    bullet1 = 'For Chrome process get value of CPU load.'
+    bullet2 = 'Compare it with value in the yellow label.'
+    expected_text = 'Chrome CPU: {}'
+    browser = 'Chrome'
+    column = 'CPU'

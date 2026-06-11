@@ -32,7 +32,7 @@ class PageLocators(BaseLocators):
 
     @property
     def text_locator(self) -> Locator:
-        return self.page.locator('//p')
+        return self.page.locator('//p').first
 
     def h4_title_locator(
             self,
@@ -212,3 +212,66 @@ class ClickLocators(PageLocators):
     @property
     def success_btn_locator(self) -> Locator:
         return self.page.locator('.btn-success')
+
+
+class TextInputLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
+
+    @property
+    def field_name_locator(self) -> Locator:
+        return self.page.locator('//label')
+
+    @property
+    def field_locator(self) -> Locator:
+        return self.page.locator('.form-control')
+
+
+class ScrollbarsLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
+
+
+class DynamicTableLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def table_name_locator(self) -> Locator:
+        return self.page.locator("//div[@id='table_desc']")
+
+    @property
+    def expected_result_locator(self) -> Locator:
+        return self.page.locator('.bg-warning')
+
+    @property
+    def table_row_locators(
+        self,
+    ) -> Locator:
+        # return self.page.locator("//div[@role='row']")
+        return self.page.get_by_role('row')
+
+    def table_cell_in_row_locators(
+            self,
+            row: int,
+    ) -> Locator:
+        row_locator = self.table_row_locators.nth(row)
+        return row_locator.get_by_role('cell')
+        # row += 1
+        # xpath = f"(//div[@role='row'])[{row}]//span[@role='cell']"
+        # return self.page.locator(xpath)
+
+    @property
+    def header_cell_locators(self) -> Locator:
+        return self.page.locator("//span[@role='columnheader']")
