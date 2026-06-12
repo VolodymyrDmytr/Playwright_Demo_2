@@ -331,3 +331,54 @@ class ProgressBarLocators(PageLocators):
     @property
     def result_locator(self) -> Locator:
         return self.page.locator("//p[@id='result']")
+
+
+class VisibilityLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def blue_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
+
+    @property
+    def red_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-danger')
+
+    @property
+    def yellow_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-warning')
+
+    @property
+    def green_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-success')
+
+    def info_btns_locator(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('.btn-info').nth(data)
+
+
+class SampleAppLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def info_text_locator(self) -> Locator:
+        return self.page.locator('//label')
+
+    @property
+    def name_field_locator(self) -> Locator:
+        return self.page.locator('.form-control').nth(0)
+
+    @property
+    def passwrd_locator(self) -> Locator:
+        return self.page.locator('.form-control').nth(1)
+
+    @property
+    def btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')

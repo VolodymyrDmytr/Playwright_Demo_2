@@ -272,3 +272,36 @@ class ProgressBarConst(BaseConstants, PageConst):
     btn_stop = 'Stop'
     result = 'Result: {}, duration:'
     default_result = 'Result: n/a'
+
+
+class VisibilityConst(BaseConstants, PageConst):
+    h3 = 'Visibility'
+    txt = 'Checking if element is visible on screen may be a non trivial task.'
+    bullets1_1 = 'An element may be removed (simplest case),'
+    bullets1_2 = 'it may have zero height or width,'
+    bullets1_3 = 'it may be covered by another element,'
+    bullets1_4 = ('it may be hidden using styles: opacity: 0, visibility: '
+                  + 'hidden, display: none,')
+    bullets1_5 = 'or moved offscreen.'
+    bullets2_1 = 'Learn locators of all buttons.'
+    bullets2_2 = 'In your testing scenario press Hide button.'
+    bullets2_3 = 'Determine if other buttons visible or not.'
+    btn_blue = 'Hide'
+    btn_red = 'Removed'
+    btn_yellow = 'Zero Width'
+    btn_green = 'Overlapped'
+    btn_info_1 = 'Opacity 0'
+    btn_info_2 = 'Visibility Hidden'
+    btn_info_3 = 'Display None'
+    btn_info_4 = 'Offscreen'
+
+
+class SampleAppConst(BaseConstants, PageConst):
+    h3 = 'Sample App'
+    text = ('Fill in and submit the form. For successfull login use any '
+            + 'non-empty user name and `pwd` as password.')
+    info_text_default = 'User logged out.'
+    info_text_success = 'Welcome, {}!'
+    info_text_error = 'Invalid username/password'
+    btn_text = 'Log In'
+    password = 'pwd'

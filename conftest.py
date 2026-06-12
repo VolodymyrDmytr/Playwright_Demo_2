@@ -15,6 +15,8 @@ from pages.scrollbars_page import ScrollbarsPage
 from pages.dynamic_table_page import DynamicTablePage
 from pages.verify_text_page import VerifyTextPage
 from pages.progress_bar_page import ProgressBarPage
+from pages.visibility_page import VisibilityPage
+from pages.sample_app_page import SampleAppPage
 
 
 @pytest.fixture
@@ -131,3 +133,21 @@ def progress(page: Page):
     progress.click_on_link('Progress Bar')
 
     yield progress
+
+
+@pytest.fixture
+def visibility(page: Page):
+    visibility = VisibilityPage(page)
+    visibility.open_base_page()
+    visibility.click_on_link('Visibility')
+
+    yield visibility
+
+
+@pytest.fixture
+def app(page: Page):
+    app = SampleAppPage(page)
+    app.open_base_page()
+    app.click_on_link('Sample App')
+
+    yield app
