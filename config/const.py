@@ -239,3 +239,36 @@ class DynamicTableConst(BaseConstants, PageConst):
     expected_text = 'Chrome CPU: {}'
     browser = 'Chrome'
     column = 'CPU'
+
+
+class VerifyTextConst(BaseConstants, PageConst):
+    h3 = 'Verify Text'
+    text1 = ('In general inner text of a DOM element is different from '
+             + 'displayed on screen. Browsers normalize text upon rendering, '
+             + 'but DOM nodes contain text as it is in HTML markup. For '
+             + 'example a browser may show the text as')
+    text2 = 'and the text of the DOM element can be'
+    text3 = ('Take this fact into account when searching for an element using'
+             + " it's text value. ")
+    bullet1 = 'Create a test that finds an element with Welcome... text.'
+    table_title1 = 'Does not work'
+    xpath1 = "//span[.='Welcome UserName!']"
+    table_title2 = 'Works'
+    xpath2 = "//span[normalize-space(.)='Welcome UserName!']"
+    text_to_find = 'Welcome UserName!'
+    fake_text = 'Hello UserName!'
+
+
+class ProgressBarConst(BaseConstants, PageConst):
+    h3 = 'Progress Bar'
+    text = ('A web application may use a progress bar to reflect state of some'
+            + ' lengthy process. Thus a test may need to read the value of a '
+            + 'progress bar to determine if it is time to proceed or not.')
+    bullet = ('Create a test that clicks Start button and then waits for the '
+              + 'progress bar to reach 75%. Then the test should click Stop. '
+              + 'The less the differnce between value of the stopped progress'
+              + ' bar and 75% the better your result.')
+    btn_start = 'Start'
+    btn_stop = 'Stop'
+    result = 'Result: {}, duration:'
+    default_result = 'Result: n/a'

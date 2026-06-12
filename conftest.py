@@ -13,6 +13,8 @@ from pages.click_page import ClickPage
 from pages.text_input_page import TextInputPage
 from pages.scrollbars_page import ScrollbarsPage
 from pages.dynamic_table_page import DynamicTablePage
+from pages.verify_text_page import VerifyTextPage
+from pages.progress_bar_page import ProgressBarPage
 
 
 @pytest.fixture
@@ -111,3 +113,21 @@ def table(page: Page):
     scroll.click_on_link('Dynamic Table')
 
     yield scroll
+
+
+@pytest.fixture
+def verify(page: Page):
+    verify = VerifyTextPage(page)
+    verify.open_base_page()
+    verify.click_on_link('Verify Text')
+
+    yield verify
+
+
+@pytest.fixture
+def progress(page: Page):
+    progress = ProgressBarPage(page)
+    progress.open_base_page()
+    progress.click_on_link('Progress Bar')
+
+    yield progress

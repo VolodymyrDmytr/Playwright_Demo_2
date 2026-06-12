@@ -31,8 +31,12 @@ class PageLocators(BaseLocators):
         return self.page.locator('//h3')
 
     @property
+    def _text_locator(self) -> Locator:
+        return self.page.locator('//p')
+
+    @property
     def text_locator(self) -> Locator:
-        return self.page.locator('//p').first
+        return self._text_locator.first
 
     def h4_title_locator(
             self,
@@ -259,7 +263,6 @@ class DynamicTableLocators(PageLocators):
     def table_row_locators(
         self,
     ) -> Locator:
-        # return self.page.locator("//div[@role='row']")
         return self.page.get_by_role('row')
 
     def table_cell_in_row_locators(
@@ -268,10 +271,63 @@ class DynamicTableLocators(PageLocators):
     ) -> Locator:
         row_locator = self.table_row_locators.nth(row)
         return row_locator.get_by_role('cell')
-        # row += 1
-        # xpath = f"(//div[@role='row'])[{row}]//span[@role='cell']"
-        # return self.page.locator(xpath)
 
     @property
     def header_cell_locators(self) -> Locator:
         return self.page.locator("//span[@role='columnheader']")
+
+
+class VerifyTextLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    def text_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self._text_locator.nth(data)
+
+    def find_text(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('.badge-secondary').nth(data)
+
+    def table_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('.col-sm').nth(data)
+
+    def find_by_text(
+            self,
+            data: str,
+    ) -> Locator:
+        return self.page.locator(
+            f"//span[normalize-space(.)='{data}']")
+
+
+class ProgressBarLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def start_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
+
+    @property
+    def stop_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-info')
+
+    @property
+    def progress_bar_locator(self) -> Locator:
+        return self.page.locator('.progress-bar')
+
+    @property
+    def result_locator(self) -> Locator:
+        return self.page.locator("//p[@id='result']")
