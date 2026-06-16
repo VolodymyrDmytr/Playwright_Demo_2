@@ -16,7 +16,7 @@ class FileUploadPage(BasePage):
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
-        h4_1 = self.locators.h4_title_locator(1) 
+        h4_1 = self.locators.h4_title_locator(1)
         bullet1 = self.locators.bullet_locators(1)
         bullet2 = self.locators.bullet_locators(2)
         h4_2 = self.locators.h4_title_locator(2)
