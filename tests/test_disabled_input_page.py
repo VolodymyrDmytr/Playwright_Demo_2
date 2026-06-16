@@ -7,7 +7,13 @@ def test_page_content(disabled):
 
 
 @pytest.mark.disabled_input_page
-def test_status_text(disabled):
+@pytest.mark.parametrize(
+    'text_to_input',
+    [
+        'My text',
+    ],
+)
+def test_status_text(disabled, text_to_input):
     text_to_input = 'My text'
 
     disabled.check_status_text('Default')
@@ -22,8 +28,13 @@ def test_status_text(disabled):
 
 
 @pytest.mark.disabled_input_page
-def test_fill_field(disabled):
-    text_to_input = 'My text'
+@pytest.mark.parametrize(
+    'text_to_input',
+    [
+        'My text',
+    ],
+)
+def test_fill_field(disabled, text_to_input):
     disabled.click_on_btn()
     disabled.fill_field(text_to_input)
     disabled.check_field_data(text_to_input)
