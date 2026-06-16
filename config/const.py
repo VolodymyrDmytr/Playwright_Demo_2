@@ -357,3 +357,38 @@ class OverlappedElementConst(BaseConstants, PageConst):
     placeholder1 = 'Id'
     placeholder2 = 'Name'
     placeholder3 = 'Subject'
+
+
+class ShadowDOMConst(BaseConstants, PageConst):
+    h3 = 'Shadow DOM'
+    text = ('This is a page with a Shadow DOM component guid-generator. Using '
+            + 'it one can generate a guid and copy it to the clipboard.')
+    bullet1 = ('Create a test that clicks on  and then on  buttons. This '
+               + 'sequence of steps generates new guid and copies it to the '
+               + 'clipboard.')
+    bullet2 = ('Add an assertion step to your test to compare the value from '
+               + 'the clipboard with the value of the input field.')
+    bullet3 = ('Then execute the test to make sure that the assertion step is '
+               + 'not failing.')
+    h6 = 'GUID Generator:'
+
+
+class AlertsConst(BaseConstants, PageConst):
+    h3 = 'Alerts'
+    text = ('Dealing with standard alerts, prompts and confirmations is an '
+            + 'important skill in test automation.')
+    bullet1 = ('Record clicks on `Alert`, `Confirm` and `Prompt` buttons. '
+               + 'Click `OK` to confirm, answer with non-default value to the '
+               + 'prompt.')
+    bullet2 = ('Then execute your test to make sure that it passes completely'
+               + ' without manual steps.')
+    btn1 = 'Alert'
+    btn2 = 'Confirm'
+    btn3 = 'Prompt'
+    alert_text = 'Today is a working day. Or less likely a holiday.'
+    confirm_text = 'Today is Friday. Do you agree?'
+    confirm_text_ok = 'Yes'
+    confirm_text_cancel = 'No'
+    prompt_text = """Choose "cats" or 'dogs'. Enter your value"""
+    prompt_text_submit_format = 'User value: {}'
+    prompt_text_cancel = prompt_text_submit_format.format('no answer')

@@ -435,3 +435,43 @@ class OverlappedElementLocators(PageLocators):
     ) -> Locator:
         data -= 1
         return self.page.locator('//input').nth(data)
+
+
+class ShadowDOMLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def h6_locator(self) -> Locator:
+        return self.page.locator('//h6')
+
+    @property
+    def field_locator(self) -> Locator:
+        return self.page.locator('.edit-field')
+
+    @property
+    def generate_btn_locator(self) -> Locator:
+        return self.page.locator('.button-generate')
+
+    @property
+    def copy_btn_locator(self) -> Locator:
+        return self.page.locator('.button-copy')
+
+
+class AlertsLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def alert_btn_locator(self) -> Locator:
+        return self.page.locator("//button[@id='alertButton']")
+
+    @property
+    def confirm_btn_locator(self) -> Locator:
+        return self.page.locator("//button[@id='confirmButton']")
+
+    @property
+    def prompt_btn_locator(self) -> Locator:
+        return self.page.locator("//button[@id='promptButton']")

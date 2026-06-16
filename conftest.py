@@ -20,6 +20,8 @@ from pages.sample_app_page import SampleAppPage
 from pages.mouse_over_page import MouseOverPage
 from pages.non_breaking_space_page import NonBreakingSpacePage
 from pages.overlapped_element_page import OverlappedElementPage
+from pages.shadow_dom_page import ShadowDOMPage
+from pages.alert_page import AlertsPage
 
 
 @pytest.fixture
@@ -181,3 +183,21 @@ def overlapped(page: Page):
     overlapped.click_on_link('Overlapped Element')
 
     yield overlapped
+
+
+@pytest.fixture
+def shadow_dom(page: Page):
+    shadow_dom = ShadowDOMPage(page)
+    shadow_dom.open_base_page()
+    shadow_dom.click_on_link('Shadow DOM')
+
+    yield shadow_dom
+
+
+@pytest.fixture
+def alerts(page: Page):
+    alerts = AlertsPage(page)
+    alerts.open_base_page()
+    alerts.click_on_link('Alerts')
+
+    yield alerts
