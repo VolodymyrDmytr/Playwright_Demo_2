@@ -26,6 +26,8 @@ from pages.overlapped_element_page import OverlappedElementPage
 from pages.shadow_dom_page import ShadowDOMPage
 from pages.alert_page import AlertsPage
 from pages.file_upload_page import FileUploadPage
+from pages.animated_button_page import AnimatedButtonPage
+from pages.disabled_input_page import DisabledInputPage
 
 
 @pytest.fixture
@@ -216,3 +218,21 @@ def upload(page: Page) -> object:
     upload.click_on_link('File Upload')
 
     yield upload
+
+
+@pytest.fixture
+def animated(page: Page) -> object:
+    animated = AnimatedButtonPage(page)
+    animated.open_base_page()
+    animated.click_on_link('Animated Button')
+
+    yield animated
+
+
+@pytest.fixture
+def disabled(page: Page) -> object:
+    disabled = DisabledInputPage(page)
+    disabled.open_base_page()
+    disabled.click_on_link('Disabled Input')
+
+    yield disabled

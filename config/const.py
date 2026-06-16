@@ -412,3 +412,38 @@ class FileUploadConst(BaseConstants, PageConst):
     file_name = 'sample.pdf'   # name of the installed file
     path_to_test_file = (
         Path(__file__).parent.parent / f'test_files/{file_name}')
+
+
+class AnimatedButtonConst(BaseConstants, PageConst):
+    h3 = 'Animated Button'
+    text = ('Before clicking a button we may need to wait for it to become '
+            + 'stable (not moving).')
+    bullet1 = ('Record `Start Animation` button click. Wait for animation to '
+               + 'complete and record click on `Moving Target`.')
+    bullet2 = ('Then execute your test to make sure that when Moving Target is'
+               + " clicked, it's class does not contain 'spin'. The class is "
+               + 'printed on the status label below the buttons.')
+    btn1_text = 'Start Animation'
+    btn2_text = 'Moving Target'
+    status_text_none = '---'
+    status_text_action = 'Animating the button...'
+    status_text_done = 'Animation done'
+    status_text_format = "Moving Target clicked. It's class name is {}"
+    status_text_action_clicked = status_text_format.format(
+        "'btn btn-primary spin'")
+    status_text_clicked = status_text_format.format("'btn btn-primary'")
+
+
+class DisabledInputConst(BaseConstants, PageConst):
+    h3 = 'Disabled Input'
+    text = ('Sometimes elements become enabled after some time they are '
+            + 'rendered on the page. A test should be able to wait for an '
+            + 'element to become enabled.')
+    bullet1 = 'Record button click. Also record text input into an edit field.'
+    bullet2 = ('Make a test that enters text as soon as the edit field becomes'
+               + ' enabled.')
+    placeholder = 'Change me...'
+    btn_text = 'Enable Edit Field with 5 seconds delay'
+    status_text_none = '---'
+    status_text_disabled = 'Input Disabled...'
+    status_text_active = 'Input Enabled...'

@@ -520,3 +520,39 @@ class FileUploadLocators(PageLocators):
     @property
     def upload_btn_locator(self) -> Locator:
         return self._iframe_locator.locator('.browse-btn')
+
+
+class AnimatedButtonLocator(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def status_text_locator(self) -> Locator:
+        return self.page.locator('//div[@id="opstatus"]')
+
+    @property
+    def start_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-secondary')
+
+    @property
+    def target_btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
+
+
+class DisabledInputLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def status_text_locator(self) -> Locator:
+        return self.page.locator('//div[@id="opstatus"]')
+
+    @property
+    def btn_locator(self) -> Locator:
+        return self.page.locator('.btn-primary')
+
+    @property
+    def field_locator(self) -> Locator:
+        return self.page.locator('.form-control')
