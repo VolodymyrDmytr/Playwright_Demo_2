@@ -17,6 +17,9 @@ from pages.verify_text_page import VerifyTextPage
 from pages.progress_bar_page import ProgressBarPage
 from pages.visibility_page import VisibilityPage
 from pages.sample_app_page import SampleAppPage
+from pages.mouse_over_page import MouseOverPage
+from pages.non_breaking_space_page import NonBreakingSpacePage
+from pages.overlapped_element_page import OverlappedElementPage
 
 
 @pytest.fixture
@@ -151,3 +154,30 @@ def app(page: Page):
     app.click_on_link('Sample App')
 
     yield app
+
+
+@pytest.fixture
+def mouse(page: Page):
+    mouse = MouseOverPage(page)
+    mouse.open_base_page()
+    mouse.click_on_link('Mouse Over')
+
+    yield mouse
+
+
+@pytest.fixture
+def nbsp(page: Page):
+    nbsp = NonBreakingSpacePage(page)
+    nbsp.open_base_page()
+    nbsp.click_on_link('Non-Breaking Space')
+
+    yield nbsp
+
+
+@pytest.fixture
+def overlapped(page: Page):
+    overlapped = OverlappedElementPage(page)
+    overlapped.open_base_page()
+    overlapped.click_on_link('Overlapped Element')
+
+    yield overlapped

@@ -305,3 +305,55 @@ class SampleAppConst(BaseConstants, PageConst):
     info_text_error = 'Invalid username/password'
     btn_text = 'Log In'
     password = 'pwd'
+
+
+class MouseOverConst(BaseConstants, PageConst):
+    h3 = 'Mouse Over'
+    text1 = (
+        'Placing mouse over an element may lead to changes in the DOM '
+        + 'tree. For example the element may be modified or replaced. It '
+        + 'means if you keep a reference to the original element and will'
+        + ' try to click on it - it may not work (stale element problem).'
+        )
+    text2 = 'This puzzle complicates both recording and playback of a test.'
+    bullet1 = 'Record 2 consecutive link clicks.'
+    bullet2 = ('Execute the test and make sure that click count is increasing '
+               + 'by 2.')
+    text3 = ('The link below will be replaced and new title assigned to it '
+             + 'when you place mouse over it. Click on it to increase the '
+             + 'click count.')
+    link1 = 'Click me'
+    text4_counter = 'The link above clicked {} times.'
+    text5 = ('The link below will be replaced with identical one when you '
+             + 'place mouse over it. Click on it to increase the click count.')
+    link2 = 'Link Button'
+    text6_counter = 'The link above clicked {} times.'
+
+
+class NonBreakingSpaceConst(BaseConstants, PageConst):
+    h3 = 'Non-Breaking Space'
+    text = ('There are cases in test automation when something should '
+            + 'obviously work but for some reason it does not. Searching for '
+            + 'an element by its text is one of those cases. Text caption may '
+            + 'contain non-breaking spaces that have no visual difference from'
+            + ' generic spaces.')
+    locator = "//button[text()='My Button']"
+    bullet1 = ('Use the following xpath to find the button in your test:'
+               + locator)
+    bullet2 = ('Notice that the XPath does not work. Change the space between '
+               + "'My' and 'Button' to a non-breaking space."
+               + ' This time the XPath should be valid.')
+    btn_text = 'My Button'
+
+
+class OverlappedElementConst(BaseConstants, PageConst):
+    h3 = 'Overlapped Element'
+    text = ('Entering text to a partially visible element may require '
+            + 'scrolling it into view.')
+    bullet1 = ('Record setting text into the Name input field (scroll element'
+               + ' before entering the text).')
+    bullet2 = ('Then execute your test to make sure that the text was entered'
+               + ' correctly.')
+    placeholder1 = 'Id'
+    placeholder2 = 'Name'
+    placeholder3 = 'Subject'

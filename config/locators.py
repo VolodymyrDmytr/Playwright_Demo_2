@@ -382,3 +382,56 @@ class SampleAppLocators(PageLocators):
     @property
     def btn_locator(self) -> Locator:
         return self.page.locator('.btn-primary')
+
+
+class MouseOverLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    def text_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self._text_locator.nth(data)
+
+    def link_page_locator(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('.text-primary').nth(data)
+
+    @property
+    def link_on_hover_locator(
+            self,
+    ) -> Locator:
+        return self.page.locator('.text-warning')
+
+
+class NonBreakingSpaceLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def locator_locator(self) -> Locator:
+        return self.page.locator('//pre')
+
+    @property
+    def button_locator(self) -> Locator:
+        return self.page.locator("//button[text()='My\u00A0Button']")
+
+
+class OverlappedElementLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    def fields_locator(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('//input').nth(data)
