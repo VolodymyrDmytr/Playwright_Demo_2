@@ -392,3 +392,23 @@ class AlertsConst(BaseConstants, PageConst):
     prompt_text = """Choose "cats" or 'dogs'. Enter your value"""
     prompt_text_submit_format = 'User value: {}'
     prompt_text_cancel = prompt_text_submit_format.format('no answer')
+
+
+class FileUploadConst(BaseConstants, PageConst):
+    h3 = 'File Upload'
+    text = ('Modern web applications often include file upload functionality, '
+            + 'enabling users to easily share and manage documents, images, '
+            + 'and other types of files directly from their devices, enhancing'
+            + ' user interaction and content management.')
+    bullet1 = 'Attach a file via drag&drop.'
+    bullet2 = 'Attach a file using `Browse files` button'
+    upload_title = 'Drag and drop your files here'
+    upload_text = ('Limit 15MB per file. Supported files:'
+                   + ' .PDF, .DOCX, .PPTX, .TXT, .XLSX')
+    btn_text = 'Browse files'
+    amount_format = '{} file(s) selected'
+
+    # Test file settings
+    file_name = 'sample.pdf'   # name of the installed file
+    path_to_test_file = (
+        Path(__file__).parent.parent / f'test_files/{file_name}')

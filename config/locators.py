@@ -475,3 +475,48 @@ class AlertsLocators(PageLocators):
     @property
     def prompt_btn_locator(self) -> Locator:
         return self.page.locator("//button[@id='promptButton']")
+
+
+class FileUploadLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    def remove_file_btn_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self._iframe_locator.locator('.file-actions').nth(data)
+
+    @property
+    def _iframe_locator(self) -> Locator:
+        return self.page.frame_locator('iframe')
+
+    @property
+    def _upload_blocks_text_locator(self) -> Locator:
+        return self._iframe_locator.locator('.upload-box').locator('//p')
+
+    @property
+    def upload_title_locator(self) -> Locator:
+        return self._upload_blocks_text_locator.nth(0)
+
+    @property
+    def upload_text_locator(self) -> Locator:
+        return self._upload_blocks_text_locator.nth(1)
+
+    def file_name_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        locator = self._iframe_locator.locator('.file-info')
+        return locator.locator('//p').nth(data)
+
+    @property
+    def upload_amount_locator(self) -> Locator:
+        return self._upload_blocks_text_locator.last
+
+    @property
+    def upload_btn_locator(self) -> Locator:
+        return self._iframe_locator.locator('.browse-btn')
