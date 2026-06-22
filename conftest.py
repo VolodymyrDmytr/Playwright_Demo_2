@@ -28,6 +28,8 @@ from pages.alert_page import AlertsPage
 from pages.file_upload_page import FileUploadPage
 from pages.animated_button_page import AnimatedButtonPage
 from pages.disabled_input_page import DisabledInputPage
+from pages.auto_wait_page import AutoWaitPage
+from pages.frames_page import FramesPage
 
 
 @pytest.fixture
@@ -236,3 +238,21 @@ def disabled(page: Page) -> object:
     disabled.click_on_link('Disabled Input')
 
     yield disabled
+
+
+@pytest.fixture
+def wait(page: Page) -> object:
+    wait = AutoWaitPage(page)
+    wait.open_base_page()
+    wait.click_on_link('Auto Wait')
+
+    yield wait
+
+
+@pytest.fixture
+def iframe(page: Page) -> object:
+    iframe = FramesPage(page)
+    iframe.open_base_page()
+    iframe.click_on_link('Frames')
+
+    yield iframe

@@ -556,3 +556,90 @@ class DisabledInputLocators(PageLocators):
     @property
     def field_locator(self) -> Locator:
         return self.page.locator('.form-control')
+
+
+class AutoWaitLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    def apply_btn_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('.btn-secondary').nth(data)
+
+    @property
+    def target_locator(self) -> Locator:
+        return self.page.locator("//*[@id='target']")
+
+    @property
+    def status_text_locator(self) -> Locator:
+        return self.page.locator("//div[@id='opstatus']")
+
+    @property
+    def state_select_locator(self) -> Locator:
+        return self.page.locator('.form-select').first
+
+    def check_boxes_locators(
+            self,
+            data: str,
+    ) -> Locator:
+        return self.page.get_by_role('checkbox', name=data)
+
+
+class FramesLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    #   objects in 1st iframe
+    @property
+    def iframe1_locator(self) -> Locator:
+        return self.page.frame_locator('iframe')
+
+    @property
+    def edit_btn_1_locator(self) -> Locator:
+        return self.iframe1_locator.locator("//button[@data-action='edit']")
+
+    @property
+    def submit_btn_1_locator(self) -> Locator:
+        return self.iframe1_locator.get_by_text('Submit')
+
+    @property
+    def click_btn_1_locator(self) -> Locator:
+        return self.iframe1_locator.locator("//button[@name='my-button']")
+
+    @property
+    def primary_btn_1_locator(self) -> Locator:
+        return self.iframe1_locator.locator('.btn-class')
+
+    @property
+    def status_text_1_locator(self) -> Locator:
+        return self.iframe1_locator.locator("//div[@id='result']")
+
+    #   objects in 2nd iframe
+    @property
+    def iframe2_locator(self) -> Locator:
+        return self.iframe1_locator.frame_locator('iframe')
+
+    @property
+    def edit_btn_2_locator(self) -> Locator:
+        return self.iframe2_locator.locator("//button[@data-action='edit']")
+
+    @property
+    def submit_btn_2_locator(self) -> Locator:
+        return self.iframe2_locator.get_by_text('Submit')
+
+    @property
+    def click_btn_2_locator(self) -> Locator:
+        return self.iframe2_locator.locator("//button[@name='my-button']")
+
+    @property
+    def primary_btn_2_locator(self) -> Locator:
+        return self.iframe2_locator.locator('.btn-class')
+
+    @property
+    def status_text_2_locator(self) -> Locator:
+        return self.iframe2_locator.locator("//div[@id='result']")

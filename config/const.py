@@ -447,3 +447,74 @@ class DisabledInputConst(BaseConstants, PageConst):
     status_text_none = '---'
     status_text_disabled = 'Input Disabled...'
     status_text_active = 'Input Enabled...'
+
+
+class AutoWaightConst(BaseConstants, PageConst):
+    h3 = 'Auto Wait'
+    text = ('Before clicking an element or entering text we may need to wait '
+            + 'until the element becomes interactable.')
+    bullet1 = 'Choose an element type from the combobox.'
+    bullet2 = "Check the checkboxes to set the element's properties."
+    bullet3 = ('Then click one of the Apply buttons to immediately apply the '
+               + 'settings and restore interactable state of the element after'
+               + ' a delay.')
+    bullet4 = ('Interact with the element in the Playground section (click, '
+               + 'select item, enter text).')
+    bullet5 = 'Observe the status messages.'
+    h4_title3 = PageConst.h4_title2
+    h4_title2 = 'Settings'
+    btn_format = 'Apply {}s'
+    btn3 = btn_format.format(3)
+    btn5 = btn_format.format(5)
+    btn10 = btn_format.format(10)
+    btn = 'Button'
+
+    # Target element
+    target_element_list = ['Input', 'Button', 'Textarea', 'Select', 'Label']
+
+    # Target
+    target_label = 'This is a Label'
+    target_options_format = 'Item {}'
+
+    # Statuses
+    status_text_none = '---'
+    status_text_clicked = 'Target clicked.'
+    status_text_wait_format = 'Target element settings applied for {} seconds.'
+    status_text_restored = 'Target element state restored.'
+
+    # Checkboxes
+    visibility = 'Visible'
+    enabled = 'Enabled'
+    editable = 'Editable'
+    top = 'On top'
+    non_zero = 'Non Zero Size'
+
+
+class FramesConst(BaseConstants, PageConst):
+    h3 = 'Frames'
+    text = ('Working with frames requires switching context. Automation tools'
+            + ' need to locate frames and switch into them before interacting'
+            + ' with elements inside. This page contains nested frames with '
+            + 'identical button markup to practice element location '
+            + 'strategies.')
+    h4_title2 = PageConst.h4_title1
+    h4_title3 = PageConst.h4_title2
+    h4_title1 = 'Element Search Strategies'
+    bullet1_1 = 'data-* attribute - find button by custom data attribute value'
+    bullet1_2 = 'text - find button by inner text content'
+    bullet1_3 = 'name - find button by @name attribute'
+    bullet1_4 = 'xpath with class - find button by class using XPath'
+    bullet2_1 = 'Switch to the outer frame (level 1).'
+    bullet2_2 = ('Find and click each button using different locator'
+                 + ' strategies.')
+    bullet2_3 = ('Switch to the inner frame (level 2) nested inside the outer'
+                 + ' frame.')
+    bullet2_4 = ('Find and click the same buttons (identical markup) in the '
+                 + 'inner frame.')
+    frame_title1 = 'Outer Frame (Level 1)'
+    frame_title2 = 'Inner Frame (Level 2)'
+    btn1 = 'Edit'
+    btn2 = 'Submit'
+    btn3 = 'Click me'
+    btn4 = 'Primary'
+    status_text_format = 'Button pressed: {}'
