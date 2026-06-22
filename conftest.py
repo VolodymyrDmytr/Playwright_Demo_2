@@ -30,6 +30,8 @@ from pages.animated_button_page import AnimatedButtonPage
 from pages.disabled_input_page import DisabledInputPage
 from pages.auto_wait_page import AutoWaitPage
 from pages.frames_page import FramesPage
+from pages.clear_input_page import ClearInputPage
+from pages.scroll_to_click_page import ScrollToClickPage
 
 
 @pytest.fixture
@@ -256,3 +258,21 @@ def iframe(page: Page) -> object:
     iframe.click_on_link('Frames')
 
     yield iframe
+
+
+@pytest.fixture
+def clear_input(page: Page) -> object:
+    clear_input = ClearInputPage(page)
+    clear_input.open_base_page()
+    clear_input.click_on_link('Clear Input')
+
+    yield clear_input
+
+
+@pytest.fixture
+def scroll_click(page: Page) -> object:
+    scroll_click = ScrollToClickPage(page)
+    scroll_click.open_base_page()
+    scroll_click.click_on_link('Scroll to Click')
+
+    yield scroll_click

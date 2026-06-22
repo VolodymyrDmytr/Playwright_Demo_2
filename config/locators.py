@@ -643,3 +643,107 @@ class FramesLocators(PageLocators):
     @property
     def status_text_2_locator(self) -> Locator:
         return self.iframe2_locator.locator("//div[@id='result']")
+
+
+class ClearInputLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    @property
+    def status_text_locator(self) -> Locator:
+        return self.page.locator("//div[@id='opstatus']")
+
+    @property
+    def label_locators(self) -> Locator:
+        return self.page.locator('//label')
+
+    def label_locator(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.label_locators.nth(data)
+
+    @property
+    def input_locator(self) -> Locator:
+        return self.page.locator("//input[@id='clearInput']")
+
+    @property
+    def textarea_locator(self) -> Locator:
+        return self.page.locator("//textarea[@id='clearTextarea']")
+
+    @property
+    def input_password_locator(self) -> Locator:
+        return self.page.locator("//input[@id='clearPassword']")
+
+    @property
+    def input_email_locator(self) -> Locator:
+        return self.page.locator("//input[@id='clearEmail']")
+
+    @property
+    def input_number_locator(self) -> Locator:
+        return self.page.locator("//input[@id='clearNumber']")
+
+    @property
+    def input_search_locator(self) -> Locator:
+        return self.page.locator("//input[@id='clearSearch']")
+
+    @property
+    def input_url_locator(self) -> Locator:
+        return self.page.locator("//input[@id='clearUrl']")
+
+    @property
+    def input_phone_locator(self) -> Locator:
+        return self.page.locator("//input[@id='clearTel']")
+
+    @property
+    def input_div_locator(self) -> Locator:
+        return self.page.locator("//div[@id='clearContentEditable']")
+
+
+class ScrollToClickLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+
+    def text_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self._text_locator.nth(data)
+
+    def h5_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('//h5').nth(data)
+
+    @property
+    def status_text_locator(self) -> Locator:
+        return self.page.locator("//span[@id='progressText']")
+
+    def list_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('.hover-row').nth(data)
+
+    @property
+    def btn1_locator(self) -> Locator:
+        return self.page.locator("//button[@id='scrollTarget1']")
+
+    @property
+    def btn2_locator(self) -> Locator:
+        return self.page.locator("//button[@id='scrollTarget2']")
+
+    @property
+    def btn3_locator(self) -> Locator:
+        return self.page.locator("//button[@id='scrollTarget3']")
+
+    @property
+    def btn4_locator(self) -> Locator:
+        return self.page.locator("//button[@id='scrollTarget4']")

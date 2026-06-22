@@ -518,3 +518,77 @@ class FramesConst(BaseConstants, PageConst):
     btn3 = 'Click me'
     btn4 = 'Primary'
     status_text_format = 'Button pressed: {}'
+
+
+class ClearInputConst(BaseConstants, PageConst):
+    h3 = 'Clear Input'
+    text = ('Clearing text from input controls seems like a simple task but it'
+            + ' has many nuances. Different control types handle text '
+            + 'selection and deletion differently. A robust test automation '
+            + 'tool should be able to clear pre-filled text from any type of '
+            + 'text input control reliably.')
+    bullet1 = 'Each input below is pre-filled with text.'
+    bullet2 = 'Clear the text in each input field using your automation tool.'
+    bullet3 = 'Verify that all fields are empty after clearing.'
+    bullet4 = ('The status label below the playground shows the number of '
+               + 'non-empty fields remaining.')
+    label1 = 'Input (type=text)'
+    label2 = 'Textarea'
+    label3 = 'Input (type=password)'
+    label4 = 'Input (type=email)'
+    label5 = 'Input (type=number)'
+    label6 = 'Input (type=search)'
+    label7 = 'Input (type=url)'
+    label8 = 'Input (type=tel)'
+    label9 = 'Content Editable Div'
+    value1 = 'Initial Text Value'
+    value2 = ('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec '
+              + 'auctor, libero eget bibendum.')
+    value3_char = 16
+    value4 = 'user@example.com'
+    value5 = '42'
+    value6 = 'Search query'
+    value7 = 'https://www.example.com'
+    value8 = '+1 (555) 123-4567'
+    value9 = ('This is an editable div element. It behaves differently from '
+              + 'standard input fields.')
+    status_text_form = 'Non-empty fields remaining: {}'
+    status_text_done = 'All fields are cleared!'
+
+
+class ScrollToClickConst(BaseConstants, PageConst):
+    h3 = 'Scroll to Click'
+    text = ('Clicking an element that is not currently visible in the viewport'
+            + ' requires scrolling. Sometimes the element itself is inside a '
+            + 'scrollable container. Other times a parent container must be '
+            + 'scrolled first to bring the child container into view. A robust'
+            + ' test must handle all these cases.')
+    bullet1 = 'Find each target button and click it.'
+    bullet2 = ('Some buttons require scrolling the page, some require '
+               + 'scrolling a container, and some require scrolling a parent '
+               + 'first.')
+    bullet3 = 'One button only appears when you hover over its parent element.'
+    bullet4 = 'After clicking a button it turns green and shows "Clicked!".'
+    bullet5 = 'Click all four buttons to complete the challenge.'
+    h5_1 = 'Case 1 — Page Scroll'
+    h5_1_text = ('The button below is placed far down the page so it is out of'
+                 + ' the initial viewport.')
+    h5_2 = 'Case 2 — Container Scroll'
+    h5_2_text = ('The button is hidden inside a scrollable container. You need'
+                 + ' to scroll within the container to reach it.')
+    h5_3 = 'Case 3 — Nested Scroll (Parent + Child)'
+    h5_3_text = ('The button is inside a nested scrollable structure. First '
+                 + 'scroll the outer container to reveal the inner one, then '
+                 + 'scroll the inner container to find the button.')
+    h5_4 = 'Case 4 — Hover to Reveal'
+    h5_4_text = ('The button below is hidden until you hover over its parent '
+                 + 'row — similar to action buttons in email clients that only'
+                 + ' appear on hover.')
+    list1 = 'Meeting notes - Q4 planning'
+    list2 = 'Re: Project deadline update'
+    list3 = 'Weekly status report'
+    list4 = 'Invitation: Team lunch Friday'
+    status_text_format = 'Buttons clicked: {} / 4'
+    status_text_done = 'All buttons clicked!'
+    btn_format = 'Button {}'
+    btn4 = '⚑ Flag'
