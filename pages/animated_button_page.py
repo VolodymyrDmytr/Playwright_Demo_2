@@ -68,4 +68,4 @@ class AnimatedButtonPage(BasePage):
 
     def click_on_target_btn(self) -> None:
         locator = self.locators.target_btn_locator
-        locator.click()
+        locator.click(timeout=1000)

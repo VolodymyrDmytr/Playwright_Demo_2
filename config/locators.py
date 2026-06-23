@@ -856,7 +856,7 @@ class CSSSelectorsLocators(PageLocators):
     @property
     def b6_btn_hidden_locator(self) -> Locator:
         return self.page.locator("//button[@id='hidden-opacity']")
-    
+
     @property
     def b6_btn_offscreen_locator(self) -> Locator:
         return self.page.locator("//button[@id='hidden-offscreen']")
