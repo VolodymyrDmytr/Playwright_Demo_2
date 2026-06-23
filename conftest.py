@@ -32,6 +32,7 @@ from pages.auto_wait_page import AutoWaitPage
 from pages.frames_page import FramesPage
 from pages.clear_input_page import ClearInputPage
 from pages.scroll_to_click_page import ScrollToClickPage
+from pages.css_selectors_page import CSSSelectorsPage
 
 
 @pytest.fixture
@@ -276,3 +277,12 @@ def scroll_click(page: Page) -> object:
     scroll_click.click_on_link('Scroll to Click')
 
     yield scroll_click
+
+
+@pytest.fixture
+def css(page: Page) -> object:
+    css = CSSSelectorsPage(page)
+    css.open_base_page()
+    css.click_on_link('CSS Selectors')
+
+    yield css

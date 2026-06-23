@@ -592,3 +592,91 @@ class ScrollToClickConst(BaseConstants, PageConst):
     status_text_done = 'All buttons clicked!'
     btn_format = 'Button {}'
     btn4 = '⚑ Flag'
+
+
+class CSSSelectorsConst(BaseConstants, PageConst):
+    h3 = 'CSS Selectors'
+    text = ('This page contains elements that can be located using various CSS'
+            + ' selectors. It also includes nested Shadow DOM levels and '
+            + 'elements with different visibility states.')
+    bullet1 = ('Practice locating elements using ID, class, attribute, and '
+               + 'combinatory CSS selectors.')
+    bullet2 = ('Pierce through multiple levels of Shadow DOM to reach deeply '
+               + 'nested elements.')
+    bullet3 = ('Use :visible and :hidden pseudo-classes to filter elements by '
+               + 'visibility state.')
+
+    # 1
+    h5_1 = 'ID Selector'
+    h5_1_btn = 'Primary Button'
+
+    # 2
+    h5_2 = 'Class Selector'
+    h5_2_btn1 = 'First'
+    h5_2_btn2 = 'Second'
+    h5_2_btn3 = 'Third'
+
+    # 3
+    h5_3 = 'Attribute Selectors'
+    h5_3_field1_placeholder = 'Username'
+    h5_3_field2_placeholder = 'Email'
+    h5_3_link = 'External Link'
+    link = 'https://example.com/'
+    title = 'Example Domain'
+    h5_3_chips1 = 'Active'
+    h5_3_chips2 = 'Inactive'
+
+    # 4
+    h5_4 = 'Combinatory Selectors'
+    h5_4_bullet1 = 'Item 1'
+    h5_4_bullet2 = 'Item 2 (special)'
+    h5_4_bullet3 = 'Item 3'
+    h5_4_p1 = 'First paragraph'
+    h5_4_p2 = 'Second paragraph (adjacent sibling)'
+    h5_4_p3 = 'Following span (general sibling)'
+
+    # 5
+    h5_5 = 'Nth-child Selectors'
+    h5_5_r1c1 = 'Row 1, Cell 1'
+    h5_5_r1c2 = 'Row 1, Cell 2'
+    h5_5_r2c1 = 'Row 2, Cell 1'
+    h5_5_r2c2 = 'Row 2, Cell 2'
+    h5_5_r3c1 = 'Row 3, Cell 1'
+    h5_5_r3c2 = 'Row 3, Cell 2'
+    h5_5_r4c1 = 'Row 4, Cell 1'
+    h5_5_r4c2 = 'Row 4, Cell 2'
+    h5_5_table = [
+            [h5_5_r1c1, h5_5_r1c2],
+            [h5_5_r2c1, h5_5_r2c2],
+            [h5_5_r3c1, h5_5_r3c2],
+            [h5_5_r4c1, h5_5_r4c2],
+                 ]
+
+    # 6
+    h5_6 = 'Visibility Tests'
+    h5_6_btn1 = 'I am visible'
+    h5_6_btn2 = 'Hidden via display:none'
+    h5_6_btn3 = 'Hidden via visibility:hidden'
+    h5_6_btn4 = 'Hidden via zero-size parent'
+    h5_6_btn5 = 'Hidden via opacity:0'
+    h5_6_btn6 = 'Hidden via offscreen position'
+
+    # 7
+    h5_7 = 'Nested Shadow DOM'
+    h5_7_text = 'Locate elements inside multiple levels of Shadow DOM.'
+
+    # 7 - DOM 1
+    h5_7_title1 = 'Shadow DOM Level 1'
+    h5_7_btn1 = 'Level 1 Button'
+    h5_7_placeholder1 = 'Level 1 Input'
+
+    # 7 - DOM 2
+    h5_7_title2 = 'Shadow DOM Level 2'
+    h5_7_btn2 = 'Level 2 Button'
+    h5_7_placeholder2 = 'Level 2 Input'
+
+    # 7 - DOM 3
+    h5_7_title3 = 'Shadow DOM Level 3 (Deepest)'
+    h5_7_btn3 = 'Level 3 Button'
+    h5_7_placeholder3 = 'Level 3 Input'
+    h5_7_status = 'Ready'

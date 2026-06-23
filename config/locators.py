@@ -1,5 +1,7 @@
 from playwright.sync_api import Page, Locator
 
+from config.const import CSSSelectorsConst
+
 
 class BaseLocators:
 
@@ -747,3 +749,162 @@ class ScrollToClickLocators(PageLocators):
     @property
     def btn4_locator(self) -> Locator:
         return self.page.locator("//button[@id='scrollTarget4']")
+
+
+class CSSSelectorsLocators(PageLocators):
+
+    def __init__(self, page: Page):
+        super().__init__(page)
+        self.const = CSSSelectorsConst()
+
+    def h5_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('//h5').nth(data)
+
+    # 1
+    @property
+    def b1_btn_locator(self) -> Locator:
+        return self.page.locator("//button[@id='primary-btn']")
+
+    # 2
+    @property
+    def b2_btn1_locator(self) -> Locator:
+        return self.page.locator("//button[@data-id='class-btn-first']")
+
+    @property
+    def b2_btn2_locator(self) -> Locator:
+        return self.page.locator("//button[@data-id='class-btn-second']")
+
+    @property
+    def b2_btn3_locator(self) -> Locator:
+        return self.page.locator("//button[@data-id='class-btn-third']")
+
+    # 3
+    @property
+    def b3_field1_locator(self) -> Locator:
+        return self.page.get_by_placeholder(self.const.h5_3_field1_placeholder)
+
+    @property
+    def b3_field2_locator(self) -> Locator:
+        return self.page.get_by_placeholder(self.const.h5_3_field2_placeholder)
+
+    @property
+    def b3_link_locator(self) -> Locator:
+        return self.link_locator(self.const.h5_3_link)
+
+    @property
+    def b3_chip_act_locator(self) -> Locator:
+        return self.page.locator('.badge-success')
+
+    @property
+    def b3_chip_inact_locator(self) -> Locator:
+        return self.page.locator('.badge-secondary')
+
+    # 4
+    def b4_bullet_locators(
+            self,
+            data: int,
+    ) -> Locator:
+        data -= 1
+        return self.page.locator('.combo-item').nth(data)
+
+    @property
+    def b4_p1_locator(self) -> Locator:
+        return self.page.locator('.first-para')
+
+    @property
+    def b4_p2_locator(self) -> Locator:
+        return self.page.locator('.second-para')
+
+    @property
+    def b4_p3_locator(self) -> Locator:
+        return self.page.locator('.following-span')
+
+    # 5
+    def b5_table(
+            self,
+            row: int,
+            cell: int,
+    ) -> Locator:
+        row -= 1
+        cell -= 1
+
+        row_locator = self.page.locator('//tr').nth(row)
+
+        return row_locator.locator('//td').nth(cell)
+
+    # 6
+    @property
+    def b6_btn_visible_locator(self) -> Locator:
+        return self.page.locator('.btn-success')
+
+    @property
+    def b6_btn_not_displayed_locator(self) -> Locator:
+        return self.page.locator("//button[@id='hidden-display']")
+
+    @property
+    def b6_btn_not_visible_locator(self) -> Locator:
+        return self.page.locator("//button[@id='hidden-visibility']")
+
+    @property
+    def b6_btn_hidden_overflow_locator(self) -> Locator:
+        return self.page.locator("//button[@id='hidden-overflow']")
+
+    @property
+    def b6_btn_hidden_locator(self) -> Locator:
+        return self.page.locator("//button[@id='hidden-opacity']")
+    
+    @property
+    def b6_btn_offscreen_locator(self) -> Locator:
+        return self.page.locator("//button[@id='hidden-offscreen']")
+
+    # 7
+    @property
+    def b7_text_locator(self) -> Locator:
+        return self._text_locator.nth(3)
+
+    # 7 - 1
+    @property
+    def b7_1_title_locator(self) -> Locator:
+        return self.page.locator('.outer-label').first
+
+    @property
+    def b7_1_btn_locator(self) -> Locator:
+        return self.page.locator('.outer-btn').first
+
+    @property
+    def b7_1_field_locator(self) -> Locator:
+        return self.page.get_by_placeholder(self.const.h5_7_placeholder1)
+
+    # 7 - 2
+    @property
+    def b7_2_title_locator(self) -> Locator:
+        return self.page.locator('.inner-label').first
+
+    @property
+    def b7_2_btn_locator(self) -> Locator:
+        return self.page.locator('.inner-btn').first
+
+    @property
+    def b7_2_field_locator(self) -> Locator:
+        return self.page.get_by_placeholder(self.const.h5_7_placeholder2)
+
+    # 7 - 3
+    @property
+    def b7_3_title_locator(self) -> Locator:
+        return self.page.locator('.deep-label').first
+
+    @property
+    def b7_3_btn_locator(self) -> Locator:
+        return self.page.locator('.deep-btn').first
+
+    @property
+    def b7_3_field_locator(self) -> Locator:
+        return self.page.get_by_placeholder(self.const.h5_7_placeholder3)
+
+    @property
+    def b7_3_status_locator(self) -> Locator:
+        return self.page.locator('#deep-status')
