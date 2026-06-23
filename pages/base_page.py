@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect
+from playwright.async_api import Page, expect
 
 from config.const import BaseConstants
 from config.locators import BaseLocators
@@ -10,10 +10,10 @@ class BasePage:
         self.locators = BaseLocators(self.page)
         self.const = BaseConstants()
 
-    def open_base_page(self) -> None:
-        self.page.goto(self.const.base_url)
+    async def open_base_page(self) -> None:
+        await self.page.goto(self.const.base_url)
 
-    def check_page_title(
+    async def check_page_title(
             self,
             data: str,
     ) -> bool:
@@ -25,9 +25,9 @@ class BasePage:
         Returns:
             bool: True, if page title is as expected
         """
-        expect(self.page).to_have_title(data)
+        await expect(self.page).to_have_title(data)
 
-    def check_url(
+    async def check_url(
             self,
             data: str,
     ) -> bool:
@@ -39,9 +39,9 @@ class BasePage:
         Returns:
             bool: True, if page URL is as expected
         """
-        expect(self.page).to_have_url(data)
+        await expect(self.page).to_have_url(data)
 
-    def click_on_link(
+    async def click_on_link(
             self,
             data: str,
     ) -> None:
@@ -50,4 +50,4 @@ class BasePage:
         Args:
             data (str): link text
         """
-        self.locators.link_locator(data).click()
+        await self.locators.link_locator(data).click()

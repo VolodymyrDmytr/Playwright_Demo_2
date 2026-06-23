@@ -11,9 +11,7 @@ url = f'https://pdfobject.com/pdf/{name}'
 
 
 def install_file_if_it_is_not_exist() -> None:
-    try:
-        os.open(file_path, os.O_EXCL)
-    except FileNotFoundError:
+    if not os.path.exists(file_path):
         request.urlretrieve(
             url,
             file_path,

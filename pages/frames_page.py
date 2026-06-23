@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect, Locator
+from playwright.async_api import Page, expect, Locator
 
 from pages.base_page import BasePage
 from config.locators import FramesLocators
@@ -12,7 +12,7 @@ class FramesPage(BasePage):
         self.locators = FramesLocators(self.page)
         self.const = FramesConst()
 
-    def check_page_content(self) -> bool:
+    async def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
         h4_1 = self.locators.h4_title_locator(1)
@@ -35,27 +35,27 @@ class FramesPage(BasePage):
         btn2_3 = self.locators.click_btn_2_locator
         btn2_4 = self.locators.primary_btn_2_locator
 
-        expect(h3).to_have_text(self.const.h3)
-        expect(text).to_have_text(self.const.text)
-        expect(h4_1).to_have_text(self.const.h4_title1)
-        expect(bullet1_1).to_have_text(self.const.bullet1_1)
-        expect(bullet1_2).to_have_text(self.const.bullet1_2)
-        expect(bullet1_3).to_have_text(self.const.bullet1_3)
-        expect(bullet1_4).to_have_text(self.const.bullet1_4)
-        expect(h4_2).to_have_text(self.const.h4_title2)
-        expect(bullet2_1).to_have_text(self.const.bullet2_1)
-        expect(bullet2_2).to_have_text(self.const.bullet2_2)
-        expect(bullet2_3).to_have_text(self.const.bullet2_3)
-        expect(bullet2_4).to_have_text(self.const.bullet2_4)
-        expect(h4_3).to_have_text(self.const.h4_title3)
-        expect(btn1_1).to_have_text(self.const.btn1)
-        expect(btn1_2).to_have_text(self.const.btn2)
-        expect(btn1_3).to_have_text(self.const.btn3)
-        expect(btn1_4).to_have_text(self.const.btn4)
-        expect(btn2_1).to_have_text(self.const.btn1)
-        expect(btn2_2).to_have_text(self.const.btn2)
-        expect(btn2_3).to_have_text(self.const.btn3)
-        expect(btn2_4).to_have_text(self.const.btn4)
+        await expect(h3).to_have_text(self.const.h3)
+        await expect(text).to_have_text(self.const.text)
+        await expect(h4_1).to_have_text(self.const.h4_title1)
+        await expect(bullet1_1).to_have_text(self.const.bullet1_1)
+        await expect(bullet1_2).to_have_text(self.const.bullet1_2)
+        await expect(bullet1_3).to_have_text(self.const.bullet1_3)
+        await expect(bullet1_4).to_have_text(self.const.bullet1_4)
+        await expect(h4_2).to_have_text(self.const.h4_title2)
+        await expect(bullet2_1).to_have_text(self.const.bullet2_1)
+        await expect(bullet2_2).to_have_text(self.const.bullet2_2)
+        await expect(bullet2_3).to_have_text(self.const.bullet2_3)
+        await expect(bullet2_4).to_have_text(self.const.bullet2_4)
+        await expect(h4_3).to_have_text(self.const.h4_title3)
+        await expect(btn1_1).to_have_text(self.const.btn1)
+        await expect(btn1_2).to_have_text(self.const.btn2)
+        await expect(btn1_3).to_have_text(self.const.btn3)
+        await expect(btn1_4).to_have_text(self.const.btn4)
+        await expect(btn2_1).to_have_text(self.const.btn1)
+        await expect(btn2_2).to_have_text(self.const.btn2)
+        await expect(btn2_3).to_have_text(self.const.btn3)
+        await expect(btn2_4).to_have_text(self.const.btn4)
 
     def _iframe_locator(
             self,
@@ -70,7 +70,7 @@ class FramesPage(BasePage):
         else:
             return Locator()
 
-    def check_status_text_is_not_shown(
+    async def check_status_text_is_not_shown(
             self,
             iframe: int,
     ) -> bool:
@@ -78,9 +78,9 @@ class FramesPage(BasePage):
             iframe,
             self.locators.status_text_1_locator,
             self.locators.status_text_2_locator)
-        expect(locator).to_contain_text('')
+        await expect(locator).to_contain_text('')
 
-    def check_status_text(
+    async def check_status_text(
             self,
             iframe: int,
             btn_text: str,
@@ -91,9 +91,9 @@ class FramesPage(BasePage):
             self.locators.status_text_2_locator)
         txt = self.const.status_text_format.format(btn_text)
 
-        expect(locator).to_have_text(txt)
+        await expect(locator).to_have_text(txt)
 
-    def click_on_edit_btn(
+    async def click_on_edit_btn(
             self,
             iframe: int,
     ) -> None:
@@ -101,9 +101,9 @@ class FramesPage(BasePage):
             iframe,
             self.locators.edit_btn_1_locator,
             self.locators.edit_btn_2_locator)
-        locator.click()
+        await locator.click()
 
-    def click_on_submit_btn(
+    async def click_on_submit_btn(
             self,
             iframe: int,
     ) -> None:
@@ -111,9 +111,9 @@ class FramesPage(BasePage):
             iframe,
             self.locators.submit_btn_1_locator,
             self.locators.submit_btn_2_locator)
-        locator.click()
+        await locator.click()
 
-    def click_on_click_btn(
+    async def click_on_click_btn(
             self,
             iframe: int,
     ) -> None:
@@ -121,9 +121,9 @@ class FramesPage(BasePage):
             iframe,
             self.locators.click_btn_1_locator,
             self.locators.click_btn_2_locator)
-        locator.click()
+        await locator.click()
 
-    def click_on_primary_btn(
+    async def click_on_primary_btn(
             self,
             iframe: int,
     ) -> None:
@@ -131,4 +131,4 @@ class FramesPage(BasePage):
             iframe,
             self.locators.primary_btn_1_locator,
             self.locators.primary_btn_2_locator)
-        locator.click()
+        await locator.click()

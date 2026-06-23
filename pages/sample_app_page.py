@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect
+from playwright.async_api import Page, expect
 
 from pages.base_page import BasePage
 from config.locators import SampleAppLocators
@@ -12,16 +12,16 @@ class SampleAppPage(BasePage):
         self.locators = SampleAppLocators(self.page)
         self.const = SampleAppConst()
 
-    def check_page_content(self) -> bool:
+    async def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
         btn = self.locators.btn_locator
 
-        expect(h3).to_have_text(self.const.h3)
-        expect(text).to_have_text(self.const.text)
-        expect(btn).to_have_text(self.const.btn_text)
+        await expect(h3).to_have_text(self.const.h3)
+        await expect(text).to_have_text(self.const.text)
+        await expect(btn).to_have_text(self.const.btn_text)
 
-    def fill_form(
+    async def fill_form(
             self,
             name: str,
             password: str,
@@ -29,14 +29,14 @@ class SampleAppPage(BasePage):
         name_locator = self.locators.name_field_locator
         password_locator = self.locators.passwrd_locator
 
-        name_locator.fill(name)
-        password_locator.fill(password)
+        await name_locator.fill(name)
+        await password_locator.fill(password)
 
-    def click_on_btn(self) -> None:
+    async def click_on_btn(self) -> None:
         locator = self.locators.btn_locator
-        locator.click()
+        await locator.click()
 
-    def check_info_text_default_error(
+    async def check_info_text_default_error(
             self,
             data: str,
     ) -> bool:
@@ -59,9 +59,9 @@ class SampleAppPage(BasePage):
         else:
             expected_text = ''
 
-        expect(locator).to_have_text(expected_text)
+        await expect(locator).to_have_text(expected_text)
 
-    def check_success_info_text(
+    async def check_success_info_text(
             self,
             data: str,
     ) -> bool:
@@ -74,4 +74,5 @@ class SampleAppPage(BasePage):
             bool: True, if success info text is as expected
         """
         locator = self.locators.info_text_locator
-        expect(locator).to_have_text(self.const.info_text_success.format(data))
+        await expect(locator).to_have_text(
+            self.const.info_text_success.format(data))

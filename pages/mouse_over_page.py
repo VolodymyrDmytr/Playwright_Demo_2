@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect, Locator
+from playwright.async_api import Page, expect, Locator
 
 from pages.base_page import BasePage
 from config.locators import MouseOverLocators
@@ -12,7 +12,7 @@ class MouseOverPage(BasePage):
         self.locators = MouseOverLocators(self.page)
         self.const = MouseOverConst()
 
-    def check_page_content(self) -> bool:
+    async def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text1 = self.locators.text_locators(1)
         text2 = self.locators.text_locators(2)
@@ -23,17 +23,17 @@ class MouseOverPage(BasePage):
         text3 = self.locators.text_locators(3)
         text5 = self.locators.text_locators(5)
 
-        expect(h3).to_have_text(self.const.h3)
-        expect(text1).to_have_text(self.const.text1)
-        expect(text2).to_have_text(self.const.text2)
-        expect(h4_1).to_have_text(self.const.h4_title1)
-        expect(bullet1).to_have_text(self.const.bullet1)
-        expect(bullet2).to_have_text(self.const.bullet2)
-        expect(h4_2).to_have_text(self.const.h4_title2)
-        expect(text3).to_have_text(self.const.text3)
-        expect(text5).to_have_text(self.const.text5)
+        await expect(h3).to_have_text(self.const.h3)
+        await expect(text1).to_have_text(self.const.text1)
+        await expect(text2).to_have_text(self.const.text2)
+        await expect(h4_1).to_have_text(self.const.h4_title1)
+        await expect(bullet1).to_have_text(self.const.bullet1)
+        await expect(bullet2).to_have_text(self.const.bullet2)
+        await expect(h4_2).to_have_text(self.const.h4_title2)
+        await expect(text3).to_have_text(self.const.text3)
+        await expect(text5).to_have_text(self.const.text5)
 
-    def click_on_link_p(
+    async def click_on_link_p(
             self,
             data: int,
             clicks_amount: int,
@@ -46,12 +46,12 @@ class MouseOverPage(BasePage):
         active_link = self.locators.link_page_locator(data)
         hover_link = self.locators.link_on_hover_locator
 
-        active_link.hover()
+        await active_link.hover()
 
         for _ in range(0, clicks_amount):
-            hover_link.click()
+            await hover_link.click()
 
-    def check_amount_of_clicks_for_link(
+    async def check_amount_of_clicks_for_link(
             self,
             data: int,
             clicks_amount: int,
@@ -66,4 +66,4 @@ class MouseOverPage(BasePage):
             data = ''
             locator = Locator()
 
-        expect(locator).to_have_text(data)
+        await expect(locator).to_have_text(data)

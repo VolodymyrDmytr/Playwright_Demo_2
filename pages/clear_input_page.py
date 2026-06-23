@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect, Locator
+from playwright.async_api import Page, expect, Locator
 
 from pages.base_page import BasePage
 from config.locators import ClearInputLocators
@@ -40,7 +40,7 @@ class ClearInputPage(BasePage):
     def fields_amount(self) -> int:
         return self.locators.label_locators.count()
 
-    def check_page_content(self) -> bool:
+    async def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
         h4_1 = self.locators.h4_title_locator(1)
@@ -68,34 +68,34 @@ class ClearInputPage(BasePage):
         field8 = self._field_locator_by_number(8)
         field9 = self._field_locator_by_number(9)
 
-        expect(h3).to_have_text(self.const.h3)
-        expect(text).to_have_text(self.const.text)
-        expect(h4_1).to_have_text(self.const.h4_title1)
-        expect(bullet1).to_have_text(self.const.bullet1)
-        expect(bullet2).to_have_text(self.const.bullet2)
-        expect(bullet3).to_have_text(self.const.bullet3)
-        expect(bullet4).to_have_text(self.const.bullet4)
-        expect(h4_2).to_have_text(self.const.h4_title2)
-        expect(label1).to_have_text(self.const.label1)
-        expect(label2).to_have_text(self.const.label2)
-        expect(label3).to_have_text(self.const.label3)
-        expect(label4).to_have_text(self.const.label4)
-        expect(label5).to_have_text(self.const.label5)
-        expect(label6).to_have_text(self.const.label6)
-        expect(label7).to_have_text(self.const.label7)
-        expect(label8).to_have_text(self.const.label8)
-        expect(label9).to_have_text(self.const.label9)
-        expect(field1).to_have_value(self.const.value1)
-        expect(field2).to_have_value(self.const.value2)
+        await expect(h3).to_have_text(self.const.h3)
+        await expect(text).to_have_text(self.const.text)
+        await expect(h4_1).to_have_text(self.const.h4_title1)
+        await expect(bullet1).to_have_text(self.const.bullet1)
+        await expect(bullet2).to_have_text(self.const.bullet2)
+        await expect(bullet3).to_have_text(self.const.bullet3)
+        await expect(bullet4).to_have_text(self.const.bullet4)
+        await expect(h4_2).to_have_text(self.const.h4_title2)
+        await expect(label1).to_have_text(self.const.label1)
+        await expect(label2).to_have_text(self.const.label2)
+        await expect(label3).to_have_text(self.const.label3)
+        await expect(label4).to_have_text(self.const.label4)
+        await expect(label5).to_have_text(self.const.label5)
+        await expect(label6).to_have_text(self.const.label6)
+        await expect(label7).to_have_text(self.const.label7)
+        await expect(label8).to_have_text(self.const.label8)
+        await expect(label9).to_have_text(self.const.label9)
+        await expect(field1).to_have_value(self.const.value1)
+        await expect(field2).to_have_value(self.const.value2)
         assert len(field3.input_value()) == self.const.value3_char
-        expect(field4).to_have_value(self.const.value4)
-        expect(field5).to_have_value(self.const.value5)
-        expect(field6).to_have_value(self.const.value6)
-        expect(field7).to_have_value(self.const.value7)
-        expect(field8).to_have_value(self.const.value8)
-        expect(field9).to_have_text(self.const.value9)
+        await expect(field4).to_have_value(self.const.value4)
+        await expect(field5).to_have_value(self.const.value5)
+        await expect(field6).to_have_value(self.const.value6)
+        await expect(field7).to_have_value(self.const.value7)
+        await expect(field8).to_have_value(self.const.value8)
+        await expect(field9).to_have_text(self.const.value9)
 
-    def check_status_text(
+    async def check_status_text(
             self,
             data: int,
     ) -> bool:
@@ -106,29 +106,29 @@ class ClearInputPage(BasePage):
 
         locator = self.locators.status_text_locator
 
-        expect(locator).to_have_text(text)
+        await expect(locator).to_have_text(text)
 
-    def remove_data(
+    async def remove_data(
             self,
             data: int,
     ) -> None:
         locator = self._field_locator_by_number(data)
 
-        locator.fill('')
+        await locator.fill('')
 
-    def fill_data(
+    async def fill_data(
             self,
             field: int,
             data: str | int,
     ) -> None:
         locator = self._field_locator_by_number(field)
 
-        locator.fill(data)
+        await locator.fill(data)
 
-    def check_field_is_empty(
+    async def check_field_is_empty(
             self,
             data: int,
     ) -> bool:
         locator = self._field_locator_by_number(data)
 
-        expect(locator).to_have_text('')
+        await expect(locator).to_have_text('')

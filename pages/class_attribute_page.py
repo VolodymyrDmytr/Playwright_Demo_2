@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect
+from playwright.async_api import Page, expect
 
 from pages.base_page import BasePage
 from config.const import ClassAttributeConst
@@ -12,7 +12,7 @@ class ClassAttributePage(BasePage):
         self.locators = ClassAttributeLocators(self.page)
         self.const = ClassAttributeConst()
 
-    def check_page_text(self) -> bool:
+    async def check_page_text(self) -> bool:
         h3 = self.locators.h3_locator
         txt1 = self.locators.text_locator(1)
         html = self.locators.html_code_locator
@@ -28,21 +28,21 @@ class ClassAttributePage(BasePage):
                 self.locators.blue_btn_locator,
                 self.locators.orange_btn_locator]
 
-        expect(h3).to_have_text(self.const.h3_title)
-        expect(txt1).to_have_text(self.const.text1)
-        expect(html).to_have_text(self.const.html)
-        expect(txt2).to_have_text(self.const.text2)
-        expect(bash1).to_have_text(self.const.bash1)
-        expect(txt3).to_have_text(self.const.text3)
-        expect(bash2).to_have_text(self.const.bash2)
-        expect(h4_title1).to_have_text(self.const.h4_title1)
-        expect(bullet1).to_have_text(self.const.bullet1)
-        expect(bullet2).to_have_text(self.const.bullet2)
-        expect(h4_title2).to_have_text(self.const.h4_title2)
+        await expect(h3).to_have_text(self.const.h3_title)
+        await expect(txt1).to_have_text(self.const.text1)
+        await expect(html).to_have_text(self.const.html)
+        await expect(txt2).to_have_text(self.const.text2)
+        await expect(bash1).to_have_text(self.const.bash1)
+        await expect(txt3).to_have_text(self.const.text3)
+        await expect(bash2).to_have_text(self.const.bash2)
+        await expect(h4_title1).to_have_text(self.const.h4_title1)
+        await expect(bullet1).to_have_text(self.const.bullet1)
+        await expect(bullet2).to_have_text(self.const.bullet2)
+        await expect(h4_title2).to_have_text(self.const.h4_title2)
         for element in btns:
-            expect(element).to_have_text(self.const.btn_text)
+            await expect(element).to_have_text(self.const.btn_text)
 
-    def click_btn(
+    async def click_btn(
             self,
             data: str,
     ) -> None:
@@ -54,18 +54,18 @@ class ClassAttributePage(BasePage):
         data = data.lower()
 
         if data == 'green':
-            self.locators.green_btn_locator.click()
+            await self.locators.green_btn_locator.click()
         elif data == 'blue':
-            self.locators.blue_btn_locator.click()
+            await self.locators.blue_btn_locator.click()
         elif data == 'orange':
-            self.locators.orange_btn_locator.click()
+            await self.locators.orange_btn_locator.click()
 
-    def _handle_dialog(self, dialog):
-        assert dialog.message == self.const.alert_text
-        dialog.accept()
+    async def _handle_dialog(self, dialog):
+        assert await dialog.message == self.const.alert_text
+        await dialog.accept()
 
-    def accept_and_check_alert_text(self) -> bool:
-        self.page.on('dialog', self._handle_dialog)
+    async def accept_and_check_alert_text(self) -> bool:
+        await self.page.on('dialog', self._handle_dialog)
 
-    def accept_alert(self) -> bool:
-        self.page.on('dialog', lambda d: d.accept())
+    async def accept_alert(self) -> bool:
+        await self.page.on('dialog', lambda d: d.accept())

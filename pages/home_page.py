@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect
+from playwright.async_api import Page, expect
 
 from pages.base_page import BasePage
 from config.locators import HomePageLocators
@@ -11,7 +11,7 @@ class HomePage(BasePage):
         self.locators = HomePageLocators(self.page)
         self.const = HomePageConst()
 
-    def check_text(
+    async def check_text(
             self,
     ) -> bool:
         title = self.locators.title_locator
@@ -20,48 +20,45 @@ class HomePage(BasePage):
         purpose = self.locators.purpose_locator
         text = self.locators.text_locator
 
-        expect(title).to_have_text(self.const.h1_text)
-        expect(quotes).to_have_text(self.const.quote)
-        expect(author).to_have_text(self.const.author)
-        expect(purpose).to_have_text(self.const.purpose_text)
-        expect(text).to_have_text(self.const.text)
+        await expect(title).to_have_text(self.const.h1_text)
+        await expect(quotes).to_have_text(self.const.quote)
+        await expect(author).to_have_text(self.const.author)
+        await expect(purpose).to_have_text(self.const.purpose_text)
+        await expect(text).to_have_text(self.const.text)
 
-    def _check_block_title(
+    async def _check_block_title(
             self,
             data: str,
             number: int,
     ) -> bool:
         locator = self.locators.card_title_locator(number)
-        expect(locator).to_have_text(data)
+        await expect(locator).to_have_text(data)
 
-    def _check_block_description(
+    async def _check_block_description(
             self,
             data: str,
             number: int,
     ) -> bool:
         locator = self.locators.card_description_locator(number)
-        expect(locator).to_have_text(data)
+        await expect(locator).to_have_text(data)
 
-    def check_block_data(
+    async def check_block_data(
             self,
             title: str,
             description: str,
             number: int,
     ) -> bool:
         number += 2
-        if number > self.locators.cards_locator.count():
+        if number > await self.locators.cards_locator.count():
             return False
 
-        self._check_block_title(title, number)
-        self._check_block_description(description, number)
+        await self._check_block_title(title, number)
+        await self._check_block_description(description, number)
 
-    def check_image(self) -> bool:
+    async def check_image(self) -> bool:
         locator = self.locators.img_locator
+        await expect(locator).to_have_attribute('alt', self.const.img_alt)
 
-        expect(locator).to_have_attribute('alt', self.const.img_alt)
-        # assert locator.evaluate(
-        #     'img => img.complete && img.naturalWidth === 0')
-
-    def check_image_text(self) -> bool:
+    async def check_image_text(self) -> bool:
         locator = self.locators.img_text_locator
-        expect(locator).to_have_text(self.const.img_text)
+        await expect(locator).to_have_text(self.const.img_text)

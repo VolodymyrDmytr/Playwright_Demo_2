@@ -1,5 +1,5 @@
-from playwright.sync_api import Page, expect
-import playwright.sync_api
+from playwright.async_api import Page, expect
+import playwright.async_api
 
 from pages.base_page import BasePage
 from config.locators import AutoWaitLocators
@@ -14,7 +14,7 @@ class AutoWaitPage(BasePage):
         self.const = AutoWaightConst()
         self.timeout = 11000
 
-    def check_page_content(self) -> bool:
+    async def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
         h4_1 = self.locators.h4_title_locator(1)
@@ -29,21 +29,21 @@ class AutoWaitPage(BasePage):
         btn2 = self.locators.apply_btn_locators(2)
         btn3 = self.locators.apply_btn_locators(3)
 
-        expect(h3).to_have_text(self.const.h3)
-        expect(text).to_have_text(self.const.text)
-        expect(h4_1).to_have_text(self.const.h4_title1)
-        expect(bullet1).to_have_text(self.const.bullet1)
-        expect(bullet2).to_have_text(self.const.bullet2)
-        expect(bullet3).to_have_text(self.const.bullet3)
-        expect(bullet4).to_have_text(self.const.bullet4)
-        expect(bullet5).to_have_text(self.const.bullet5)
-        expect(h4_2).to_have_text(self.const.h4_title2)
-        expect(h4_3).to_have_text(self.const.h4_title3)
-        expect(btn1).to_have_text(self.const.btn3)
-        expect(btn2).to_have_text(self.const.btn5)
-        expect(btn3).to_have_text(self.const.btn10)
+        await expect(h3).to_have_text(self.const.h3)
+        await expect(text).to_have_text(self.const.text)
+        await expect(h4_1).to_have_text(self.const.h4_title1)
+        await expect(bullet1).to_have_text(self.const.bullet1)
+        await expect(bullet2).to_have_text(self.const.bullet2)
+        await expect(bullet3).to_have_text(self.const.bullet3)
+        await expect(bullet4).to_have_text(self.const.bullet4)
+        await expect(bullet5).to_have_text(self.const.bullet5)
+        await expect(h4_2).to_have_text(self.const.h4_title2)
+        await expect(h4_3).to_have_text(self.const.h4_title3)
+        await expect(btn1).to_have_text(self.const.btn3)
+        await expect(btn2).to_have_text(self.const.btn5)
+        await expect(btn3).to_have_text(self.const.btn10)
 
-    def change_target_element(
+    async def change_target_element(
             self,
             data: str,
     ) -> None | False:
@@ -58,11 +58,11 @@ class AutoWaitPage(BasePage):
         locator = self.locators.state_select_locator
         data = data.strip().title()
         if data in self.const.target_element_list:
-            locator.select_option(data)
+            await locator.select_option(data)
         else:
             return False
 
-    def check_status_text(
+    async def check_status_text(
             self,
             data: str,
     ) -> bool:
@@ -94,9 +94,9 @@ class AutoWaitPage(BasePage):
         else:
             text = ''
 
-        expect(locator).to_have_text(text)
+        await expect(locator).to_have_text(text)
 
-    def change_target(
+    async def change_target(
             self,
             data: str,
     ) -> None:
@@ -121,9 +121,9 @@ class AutoWaitPage(BasePage):
             option = ''
 
         locator = self.locators.check_boxes_locators(option)
-        locator.click()
+        await locator.click()
 
-    def click_apply(
+    async def click_apply(
             self,
             data: int,
     ) -> None | False:
@@ -144,32 +144,32 @@ class AutoWaitPage(BasePage):
         else:
             return False
 
-        locator.click()
+        await locator.click()
 
-    def click_on_target(self) -> None:
+    async def click_on_target(self) -> None:
         locator = self.locators.target_locator
-        locator.click(timeout=self.timeout)
+        await locator.click(timeout=self.timeout)
 
-    def fill_target(
+    async def fill_target(
             self,
             data: str,
     ) -> None:
         locator = self.locators.target_locator
-        locator.click(force=True, timeout=self.timeout)
-        locator.fill(data, timeout=self.timeout)
+        await locator.click(force=True, timeout=self.timeout)
+        await locator.fill(data, timeout=self.timeout)
 
-    def check_target_data(
+    async def check_target_data(
             self,
             data: str,
     ) -> bool:
         locator = self.locators.target_locator
-        expect(locator).to_have_value(data)
+        await expect(locator).to_have_value(data)
 
-    def check_targets_text(self) -> bool:
+    async def check_targets_text(self) -> bool:
         locator = self.locators.target_locator
-        expect(locator).to_have_text(self.const.target_label)
+        await expect(locator).to_have_text(self.const.target_label)
 
-    def select_target_option(
+    async def select_target_option(
             self,
             data: int,
     ) -> None | False:
@@ -186,40 +186,41 @@ class AutoWaitPage(BasePage):
         if data not in [1, 2, 3]:
             return False
 
-        locator.select_option(self.const.target_options_format.format(data),
-                              timeout=self.timeout)
+        await locator.select_option(
+            self.const.target_options_format.format(data),
+            timeout=self.timeout)
 
-    def check_targets_visibility(self) -> bool:
+    async def check_targets_visibility(self) -> bool:
         """Checks is target is not visible
 
         Returns:
             bool: True, if target is not visible
         """
         locator = self.locators.target_locator
-        expect(locator).not_to_be_visible()
+        await expect(locator).not_to_be_visible()
 
-    def check_is_targets_hidden(self) -> bool:
+    async def check_is_targets_hidden(self) -> bool:
         """Checks is target is hidden
 
         Returns:
             bool: True, if target is hidden
         """
         locator = self.locators.target_locator
-        expect(locator).to_be_hidden()
+        await expect(locator).to_be_hidden()
 
-    def check_is_target_disabled(self) -> bool:
+    async def check_is_target_disabled(self) -> bool:
         locator = self.locators.target_locator
-        expect(locator).to_be_disabled()
+        await expect(locator).to_be_disabled()
 
-    def check_is_target_editable(self) -> bool:
+    async def check_is_target_editable(self) -> bool:
         locator = self.locators.target_locator
-        expect(locator).to_be_editable()
+        await expect(locator).to_be_editable()
 
-    def check_target_is_not_clickable(self) -> bool:
+    async def check_target_is_not_clickable(self) -> bool:
         locator = self.locators.target_locator
         try:
-            locator.click(timeout=2000)
-        except playwright.sync_api.TimeoutError:
+            await locator.click(timeout=2000)
+        except playwright.async_api.TimeoutError:
             return True
         else:
             return False

@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect
+from playwright.async_api import Page, expect
 
 from pages.base_page import BasePage
 from config.locators import ScrollToClickLocators
@@ -12,7 +12,7 @@ class ScrollToClickPage(BasePage):
         self.locators = ScrollToClickLocators(self.page)
         self.const = ScrollToClickConst()
 
-    def check_page_content(self) -> bool:
+    async def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locators(1)
         h4_title1 = self.locators.h4_title_locator(1)
@@ -35,23 +35,23 @@ class ScrollToClickPage(BasePage):
                 self.locators.btn3_locator,
                 self.locators.btn4_locator]
 
-        expect(h3).to_have_text(self.const.h3)
-        expect(text).to_have_text(self.const.text)
-        expect(h4_title1).to_have_text(self.const.h4_title1)
-        expect(bullet1).to_have_text(self.const.bullet1)
-        expect(bullet2).to_have_text(self.const.bullet2)
-        expect(bullet3).to_have_text(self.const.bullet3)
-        expect(bullet4).to_have_text(self.const.bullet4)
-        expect(bullet5).to_have_text(self.const.bullet5)
-        expect(h4_title2).to_have_text(self.const.h4_title2)
-        expect(h5_1).to_have_text(self.const.h5_1)
-        expect(h5_1_text).to_have_text(self.const.h5_1_text)
-        expect(h5_2).to_have_text(self.const.h5_2)
-        expect(h5_2_text).to_have_text(self.const.h5_2_text)
-        expect(h5_3).to_have_text(self.const.h5_3)
-        expect(h5_3_text).to_have_text(self.const.h5_3_text)
-        expect(h5_4).to_have_text(self.const.h5_4)
-        expect(h5_4_text).to_have_text(self.const.h5_4_text)
+        await expect(h3).to_have_text(self.const.h3)
+        await expect(text).to_have_text(self.const.text)
+        await expect(h4_title1).to_have_text(self.const.h4_title1)
+        await expect(bullet1).to_have_text(self.const.bullet1)
+        await expect(bullet2).to_have_text(self.const.bullet2)
+        await expect(bullet3).to_have_text(self.const.bullet3)
+        await expect(bullet4).to_have_text(self.const.bullet4)
+        await expect(bullet5).to_have_text(self.const.bullet5)
+        await expect(h4_title2).to_have_text(self.const.h4_title2)
+        await expect(h5_1).to_have_text(self.const.h5_1)
+        await expect(h5_1_text).to_have_text(self.const.h5_1_text)
+        await expect(h5_2).to_have_text(self.const.h5_2)
+        await expect(h5_2_text).to_have_text(self.const.h5_2_text)
+        await expect(h5_3).to_have_text(self.const.h5_3)
+        await expect(h5_3_text).to_have_text(self.const.h5_3_text)
+        await expect(h5_4).to_have_text(self.const.h5_4)
+        await expect(h5_4_text).to_have_text(self.const.h5_4_text)
 
         for i in range(1, len(btns)+1):
             if i == 4:
@@ -59,9 +59,9 @@ class ScrollToClickPage(BasePage):
             else:
                 text = self.const.btn_format.format(i)
 
-            expect(btns[i - 1]).to_have_text(text)
+            await expect(btns[i - 1]).to_have_text(text)
 
-    def check_status_text(
+    async def check_status_text(
             self,
             data: int,
     ) -> bool:
@@ -72,23 +72,23 @@ class ScrollToClickPage(BasePage):
 
         locator = self.locators.status_text_locator
 
-        expect(locator).to_have_text(text)
+        await expect(locator).to_have_text(text)
 
-    def click_on_btn1(self) -> None:
+    async def click_on_btn1(self) -> None:
         locator = self.locators.btn1_locator
-        locator.click()
+        await locator.click()
 
-    def click_on_btn2(self) -> None:
+    async def click_on_btn2(self) -> None:
         locator = self.locators.btn2_locator
-        locator.click()
+        await locator.click()
 
-    def click_on_btn3(self) -> None:
+    async def click_on_btn3(self) -> None:
         locator = self.locators.btn3_locator
-        locator.click()
+        await locator.click()
 
-    def click_on_btn4(self) -> None:
+    async def click_on_btn4(self) -> None:
         list_locator = self.locators.list_locators(3)
         btn_locator = self.locators.btn4_locator
 
-        list_locator.hover()
-        btn_locator.click()
+        await list_locator.hover()
+        await btn_locator.click()

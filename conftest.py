@@ -1,5 +1,5 @@
 import pytest
-from playwright.sync_api import Page
+from playwright.async_api import Page
 
 # Support method
 from config.file_installer import install_file_if_it_is_not_exist as file_inst

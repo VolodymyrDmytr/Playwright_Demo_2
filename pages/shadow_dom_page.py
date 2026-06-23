@@ -1,4 +1,4 @@
-from playwright.sync_api import Page, expect
+from playwright.async_api import Page, expect
 import logging
 
 from pages.base_page import BasePage
@@ -15,7 +15,7 @@ class ShadowDOMPage(BasePage):
         self.locators = ShadowDOMLocators(self.page)
         self.const = ShadowDOMConst()
 
-    def check_page_content(self) -> bool:
+    async def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
         bullet1 = self.locators.bullet_locators(1)
@@ -23,35 +23,35 @@ class ShadowDOMPage(BasePage):
         bullet3 = self.locators.bullet_locators(3)
         h6 = self.locators.h6_locator
 
-        expect(h3).to_have_text(self.const.h3)
-        expect(text).to_have_text(self.const.text)
-        expect(bullet1).to_have_text(self.const.bullet1)
-        expect(bullet2).to_have_text(self.const.bullet2)
-        expect(bullet3).to_have_text(self.const.bullet3)
-        expect(h6).to_have_text(self.const.h6)
+        await expect(h3).to_have_text(self.const.h3)
+        await expect(text).to_have_text(self.const.text)
+        await expect(bullet1).to_have_text(self.const.bullet1)
+        await expect(bullet2).to_have_text(self.const.bullet2)
+        await expect(bullet3).to_have_text(self.const.bullet3)
+        await expect(h6).to_have_text(self.const.h6)
 
-    def click_generate_guid(self) -> None:
+    async def click_generate_guid(self) -> None:
         locator = self.locators.generate_btn_locator
-        locator.click()
+        await locator.click()
 
     # Error in console after click on page
-    def copy_guid_btn(self) -> str:
+    async def copy_guid_btn(self) -> str:
         locator = self.locators.copy_btn_locator
-        locator.click()
+        await locator.click()
 
-    def check_guid_field(
+    async def check_guid_field(
             self,
             data: str,
     ) -> bool:
         locator = self.locators.field_locator
-        expect(locator).to_have_value(data)
+        await expect(locator).to_have_value(data)
 
-    def get_generated_guid(self) -> str:
+    async def get_generated_guid(self) -> str:
         locator = self.locators.field_locator
-        data = locator.input_value()
+        data = await locator.input_value()
         logger.debug('Generated GUID: %s', data)
         return data
 
-    def check_field_is_not_empty(self) -> bool:
+    async def check_field_is_not_empty(self) -> bool:
         locator = self.locators.field_locator
-        expect(locator).not_to_have_value('')
+        await expect(locator).not_to_have_value('')
