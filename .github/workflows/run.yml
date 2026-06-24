@@ -122,8 +122,6 @@ jobs:
       run: poetry install --no-root
     - name: Install Browsers
       run: poetry run playwright install
-    - name: Install allure 2.41.0
-      run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.41.0/allure-2.41.0.tgz && sudo tar -zxvf allure-2.41.0.tgz -C /opt/ && sudo ln -s /opt/allure-2.41.0/bin/allure /usr/bin/allure
 
     - name: Run All tests
       if: "github.event.inputs.deployment_target == 'All'"
