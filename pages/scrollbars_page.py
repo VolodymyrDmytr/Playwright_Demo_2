@@ -1,5 +1,5 @@
 from playwright.sync_api import Page, expect
-
+import allure
 
 from pages.base_page import BasePage
 from config.locators import ScrollbarsLocators
@@ -13,6 +13,7 @@ class ScrollbarsPage(BasePage):
         self.locators = ScrollbarsLocators(self.page)
         self.const = ScrollbarsConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -30,6 +31,7 @@ class ScrollbarsPage(BasePage):
         expect(h4_2).to_have_text(self.const.h4_title2)
         expect(btn).to_have_text(self.const.btn_text)
 
+    @allure.step('Click on button')
     def click_on_button(self) -> None:
         locator = self.locators.btn_locator
         locator.click()

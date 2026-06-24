@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 import logging
+import allure
 
 from pages.base_page import BasePage
 from config.locators import ShadowDOMLocators
@@ -15,6 +16,7 @@ class ShadowDOMPage(BasePage):
         self.locators = ShadowDOMLocators(self.page)
         self.const = ShadowDOMConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -30,15 +32,18 @@ class ShadowDOMPage(BasePage):
         expect(bullet3).to_have_text(self.const.bullet3)
         expect(h6).to_have_text(self.const.h6)
 
+    @allure.step('Click on Generate GUID button')
     def click_generate_guid(self) -> None:
         locator = self.locators.generate_btn_locator
         locator.click()
 
     # Error in console after click on page
+    @allure.step('Click on Copy GUID button')
     def copy_guid_btn(self) -> str:
         locator = self.locators.copy_btn_locator
         locator.click()
 
+    @allure.step('Check is GUID field contains {data}')
     def check_guid_field(
             self,
             data: str,
@@ -46,12 +51,14 @@ class ShadowDOMPage(BasePage):
         locator = self.locators.field_locator
         expect(locator).to_have_value(data)
 
+    @allure.step('Get GUID data')
     def get_generated_guid(self) -> str:
         locator = self.locators.field_locator
         data = locator.input_value()
         logger.debug('Generated GUID: %s', data)
         return data
 
+    @allure.step('Check is GUID field not empty')
     def check_field_is_not_empty(self) -> bool:
         locator = self.locators.field_locator
         expect(locator).not_to_have_value('')

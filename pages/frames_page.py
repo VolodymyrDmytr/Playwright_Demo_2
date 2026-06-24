@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect, Locator
+import allure
 
 from pages.base_page import BasePage
 from config.locators import FramesLocators
@@ -12,6 +13,7 @@ class FramesPage(BasePage):
         self.locators = FramesLocators(self.page)
         self.const = FramesConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -70,6 +72,7 @@ class FramesPage(BasePage):
         else:
             return Locator()
 
+    @allure.step('Check that status text is not visible')
     def check_status_text_is_not_shown(
             self,
             iframe: int,
@@ -80,6 +83,7 @@ class FramesPage(BasePage):
             self.locators.status_text_2_locator)
         expect(locator).to_contain_text('')
 
+    @allure.step('Check is status text in iframe {iframe} has {btn_text}')
     def check_status_text(
             self,
             iframe: int,
@@ -93,6 +97,7 @@ class FramesPage(BasePage):
 
         expect(locator).to_have_text(txt)
 
+    @allure.step('Click on Edit button in iframe {iframe}')
     def click_on_edit_btn(
             self,
             iframe: int,
@@ -103,6 +108,7 @@ class FramesPage(BasePage):
             self.locators.edit_btn_2_locator)
         locator.click()
 
+    @allure.step('Click on Submit button in iframe {iframe}')
     def click_on_submit_btn(
             self,
             iframe: int,
@@ -113,6 +119,7 @@ class FramesPage(BasePage):
             self.locators.submit_btn_2_locator)
         locator.click()
 
+    @allure.step('Click on Click me button in iframe {iframe}')
     def click_on_click_btn(
             self,
             iframe: int,
@@ -123,6 +130,7 @@ class FramesPage(BasePage):
             self.locators.click_btn_2_locator)
         locator.click()
 
+    @allure.step('Click on Primary button in iframe {iframe}')
     def click_on_primary_btn(
             self,
             iframe: int,

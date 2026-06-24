@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect, Locator
+import allure
 
 from pages.base_page import BasePage
 from config.locators import ClearInputLocators
@@ -37,9 +38,11 @@ class ClearInputPage(BasePage):
         else:
             return Locator()
 
+    @allure.step('Get fields amount')
     def fields_amount(self) -> int:
         return self.locators.label_locators.count()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -95,6 +98,8 @@ class ClearInputPage(BasePage):
         expect(field8).to_have_value(self.const.value8)
         expect(field9).to_have_text(self.const.value9)
 
+    @allure.step(
+            'Check is status text correct. (Expected empty fields {data})')
     def check_status_text(
             self,
             data: int,
@@ -108,6 +113,7 @@ class ClearInputPage(BasePage):
 
         expect(locator).to_have_text(text)
 
+    @allure.step('Remove data from the field {data}')
     def remove_data(
             self,
             data: int,
@@ -116,6 +122,7 @@ class ClearInputPage(BasePage):
 
         locator.fill('')
 
+    @allure.step('Fill {data} in {field} field')
     def fill_data(
             self,
             field: int,
@@ -125,6 +132,7 @@ class ClearInputPage(BasePage):
 
         locator.fill(data)
 
+    @allure.step('Check is {data} field is empty')
     def check_field_is_empty(
             self,
             data: int,

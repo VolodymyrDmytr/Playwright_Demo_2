@@ -1,6 +1,7 @@
 from playwright.sync_api import Page, expect
 import time
 import logging
+import allure
 
 from pages.base_page import BasePage
 from config.locators import ProgressBarLocators
@@ -16,6 +17,7 @@ class ProgressBarPage(BasePage):
         self.locators = ProgressBarLocators(self.page)
         self.const = ProgressBarConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -35,6 +37,9 @@ class ProgressBarPage(BasePage):
         expect(btn2).to_have_text(self.const.btn_stop)
         expect(result).to_have_text(self.const.default_result)
 
+    @allure.step(
+            'Start and Stop progress bar on {expected_progress}, and check is'
+            + ' data correct')
     def progress_bar_actions(
             self,
             expected_progress: int,

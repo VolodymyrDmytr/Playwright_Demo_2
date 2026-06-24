@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect, Locator
+import allure
 
 from pages.base_page import BasePage
 from config.locators import OverlappedElementLocators
@@ -12,6 +13,7 @@ class OverlappedElementPage(BasePage):
         self.locators = OverlappedElementLocators(self.page)
         self.const = OverlappedElementConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -43,6 +45,7 @@ class OverlappedElementPage(BasePage):
 
         return locator1, locator2, locator3
 
+    @allure.step('Fill fields id({ids}), name({name}) and subject({subject})')
     def fill_fields(
             self,
             ids: str,
@@ -60,6 +63,9 @@ class OverlappedElementPage(BasePage):
         locator3.click(force=True)
         locator3.fill(subject)
 
+    @allure.step(
+            'Check are fields contain correct data - id({ids}),'
+            + ' name({name}) and subject({subject})')
     def check_fields_data(
             self,
             ids: str,

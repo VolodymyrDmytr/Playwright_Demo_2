@@ -1,8 +1,10 @@
 import pytest
+import allure
 
 
 @pytest.mark.clear_input_page
 def test_page_content(clear_input):
+    allure.dynamic.title('Test page content')
     clear_input.check_page_content()
     clear_input.check_status_text(clear_input.fields_amount())
 
@@ -13,6 +15,8 @@ def test_page_content(clear_input):
     [i for i in range(1, 10)],
 )
 def test_fields(clear_input, field):
+    allure.dynamic.title(f'Test field {field}')
+
     if field != 5:
         data = 'Some text'
     else:
@@ -26,6 +30,7 @@ def test_fields(clear_input, field):
 
 @pytest.mark.clear_input_page
 def test_removing_data(clear_input):
+    allure.dynamic.title('Test removing data from fields')
     fields_amount = clear_input.fields_amount()
 
     for i in range(1, fields_amount + 1):

@@ -1,18 +1,22 @@
 import pytest
+import allure
 
 
 @pytest.mark.home_page
 def test_url(home_page):
+    allure.dynamic.title('Test url')
     home_page.check_url(home_page.const.base_url)
 
 
 @pytest.mark.home_page
 def test_page_title(home_page):
+    allure.dynamic.title('Test page title')
     home_page.check_page_title(home_page.const.title_on_page)
 
 
 @pytest.mark.home_page
 def test_page_data(home_page):
+    allure.dynamic.title('Test page content')
     home_page.check_text()
     home_page.check_image()
     home_page.check_image_text()
@@ -21,6 +25,7 @@ def test_page_data(home_page):
 @pytest.mark.home_page
 @pytest.mark.parametrize('card_nmb', [i for i in range(0, 28)])
 def test_cards_data(home_page, card_nmb):
+    allure.dynamic.title(f'Test {card_nmb} card data')
     card_data = home_page.const.card_data(card_nmb)
     home_page.check_block_data(
         card_data.card_title,
@@ -32,6 +37,7 @@ def test_cards_data(home_page, card_nmb):
 @pytest.mark.home_page
 @pytest.mark.parametrize('card_nmb', [i for i in range(0, 28)])
 def test_cards_urls(home_page, card_nmb):
+    allure.dynamic.title(f'Test {card_nmb} card link')
     card_data = home_page.const.card_data(card_nmb)
     page_url = home_page.const.url_by_title(card_data.card_title)
 

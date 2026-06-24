@@ -1,8 +1,10 @@
 import pytest
+import allure
 
 
 @pytest.mark.overlapped_element_page
 def test_page_content(overlapped):
+    allure.dynamic.title('Test page content')
     overlapped.check_page_content()
 
 
@@ -14,6 +16,8 @@ def test_page_content(overlapped):
     ],
 )
 def test_fields(overlapped, ids, name, subj):
+    allure.dynamic.title(
+        f'Test fields id = {ids}, name = {name} and subject = {subj}')
     overlapped.fill_fields(
         ids,
         name,

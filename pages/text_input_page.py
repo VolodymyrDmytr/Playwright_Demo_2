@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.locators import TextInputLocators
@@ -12,6 +13,7 @@ class TextInputPage(BasePage):
         self.locators = TextInputLocators(self.page)
         self.const = TextInputConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -34,6 +36,8 @@ class TextInputPage(BasePage):
             'placeholder', self.const.field_placeholder)
         expect(btn).to_have_text(self.const.btn_text)
 
+    @allure.step(
+            'Change and check is new button name is correct. Button - {data}')
     def change_button_name(
             self,
             data: str,

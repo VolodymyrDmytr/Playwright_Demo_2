@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.locators import AnimatedButtonLocator
@@ -12,6 +13,7 @@ class AnimatedButtonPage(BasePage):
         self.locators = AnimatedButtonLocator(self.page)
         self.const = AnimatedButtonConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -31,6 +33,7 @@ class AnimatedButtonPage(BasePage):
         expect(btn1).to_have_text(self.const.btn1_text)
         expect(btn2).to_have_text(self.const.btn2_text)
 
+    @allure.step('Check is status text: {status}')
     def check_status_text(
             self,
             status: str,
@@ -62,10 +65,12 @@ class AnimatedButtonPage(BasePage):
 
         expect(locator).to_have_text(text, timeout=6000)
 
+    @allure.step('Click on Start button')
     def click_on_start_btn(self) -> None:
         locator = self.locators.start_btn_locator
         locator.click()
 
+    @allure.step('Click on Target button')
     def click_on_target_btn(self) -> None:
         locator = self.locators.target_btn_locator
         locator.click(timeout=1000)

@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.const import ClassAttributeConst
@@ -12,6 +13,7 @@ class ClassAttributePage(BasePage):
         self.locators = ClassAttributeLocators(self.page)
         self.const = ClassAttributeConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_text(self) -> bool:
         h3 = self.locators.h3_locator
         txt1 = self.locators.text_locator(1)
@@ -42,6 +44,7 @@ class ClassAttributePage(BasePage):
         for element in btns:
             expect(element).to_have_text(self.const.btn_text)
 
+    @allure.step('Click on {data} button')
     def click_btn(
             self,
             data: str,
@@ -64,8 +67,10 @@ class ClassAttributePage(BasePage):
         assert dialog.message == self.const.alert_text
         dialog.accept()
 
+    @allure.step('Accept and check is alert text correct')
     def accept_and_check_alert_text(self) -> bool:
         self.page.on('dialog', self._handle_dialog)
 
+    @allure.step('Accept alert')
     def accept_alert(self) -> bool:
         self.page.on('dialog', lambda d: d.accept())

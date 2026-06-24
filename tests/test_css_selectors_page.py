@@ -1,8 +1,10 @@
 import pytest
+import allure
 
 
 @pytest.mark.css_selectors_page
 def test_page_content(css):
+    allure.dynamic.title('Test page content')
     css.check_main_page_content()
     css.check_b1_content()
     css.check_b2_content()
@@ -16,11 +18,13 @@ def test_page_content(css):
 
 @pytest.mark.css_selectors_page
 def test_b1_button(css):
+    allure.dynamic.title('Block 1. Test click on button')
     css.b1_click_on_btn()
 
 
 @pytest.mark.css_selectors_page
 def test_b2_buttons(css):
+    allure.dynamic.title('Block 2. Test click on buttons')
     css.b2_click_on_btn1()
     css.b2_click_on_btn2()
     css.b2_click_on_btn3()
@@ -28,6 +32,9 @@ def test_b2_buttons(css):
 
 @pytest.mark.css_selectors_page
 def test_b3(css):
+    allure.dynamic.title(
+        'Block 3. Test click on button, Chips statuses and link')
+
     name = 'Name'
     email = 'Email'
 
@@ -42,6 +49,7 @@ def test_b3(css):
 
 @pytest.mark.css_selectors_page
 def test_b6(css):
+    allure.dynamic.title('Block 6. Test Buttons statuses')
     css.check_is_btn1_visible()
     css.check_is_bnt2_not_displayed()
     css.check_is_bnt3_not_visible()
@@ -56,6 +64,7 @@ def test_b6(css):
     [1, 2, 3],
 )
 def test_b7(css, dom_level):
+    allure.dynamic.title(f'Block 7. Test elements on {dom_level} DOM level')
     data = 'Some input 123'
 
     css.b7_click_on_btn(dom_level)

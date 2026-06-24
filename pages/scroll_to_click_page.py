@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.locators import ScrollToClickLocators
@@ -12,6 +13,7 @@ class ScrollToClickPage(BasePage):
         self.locators = ScrollToClickLocators(self.page)
         self.const = ScrollToClickConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locators(1)
@@ -61,6 +63,7 @@ class ScrollToClickPage(BasePage):
 
             expect(btns[i - 1]).to_have_text(text)
 
+    @allure.step('Check status text when {data} buttons were clicked')
     def check_status_text(
             self,
             data: int,
@@ -74,18 +77,22 @@ class ScrollToClickPage(BasePage):
 
         expect(locator).to_have_text(text)
 
+    @allure.step('Click on Button 1')
     def click_on_btn1(self) -> None:
         locator = self.locators.btn1_locator
         locator.click()
 
+    @allure.step('Click on Button 2')
     def click_on_btn2(self) -> None:
         locator = self.locators.btn2_locator
         locator.click()
 
+    @allure.step('Click on Button 3')
     def click_on_btn3(self) -> None:
         locator = self.locators.btn3_locator
         locator.click()
 
+    @allure.step('Click on Button 4')
     def click_on_btn4(self) -> None:
         list_locator = self.locators.list_locators(3)
         btn_locator = self.locators.btn4_locator

@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect, Locator
+import allure
 
 from pages.base_page import BasePage
 from config.locators import MouseOverLocators
@@ -12,6 +13,7 @@ class MouseOverPage(BasePage):
         self.locators = MouseOverLocators(self.page)
         self.const = MouseOverConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text1 = self.locators.text_locators(1)
@@ -33,6 +35,7 @@ class MouseOverPage(BasePage):
         expect(text3).to_have_text(self.const.text3)
         expect(text5).to_have_text(self.const.text5)
 
+    @allure.step('Click on link {data} - {clicks_amount} times')
     def click_on_link_p(
             self,
             data: int,
@@ -51,6 +54,7 @@ class MouseOverPage(BasePage):
         for _ in range(0, clicks_amount):
             hover_link.click()
 
+    @allure.step('Check is {data} link was cliked {clicks_amount} times')
     def check_amount_of_clicks_for_link(
             self,
             data: int,

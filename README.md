@@ -11,6 +11,8 @@ The project demonstrates two implementations:
 - pytest-asyncio
 - pytest-syncio
 - urllib3
+- allure
+- GitHub Actions
 
 ## Performance comparison
 

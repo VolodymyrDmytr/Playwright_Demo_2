@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.locators import ClickLocators
@@ -12,6 +13,7 @@ class ClickPage(BasePage):
         self.locators = ClickLocators(self.page)
         self.const = ClickConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -29,10 +31,12 @@ class ClickPage(BasePage):
         expect(h4_2).to_have_text(self.const.h4_title2)
         expect(btn).to_have_text(self.const.btn_text)
 
+    @allure.step('Click on button')
     def click_on_button(self) -> None:
         locator = self.locators.btn_locator
         locator.click()
 
+    @allure.step('Click on Success button')
     def click_on_success_btn(self) -> None:
         locator = self.locators.success_btn_locator
         locator.click()

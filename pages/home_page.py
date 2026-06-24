@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.locators import HomePageLocators
@@ -6,11 +7,13 @@ from config.const import HomePageConst
 
 
 class HomePage(BasePage):
+
     def __init__(self, page: Page):
         super().__init__(page)
         self.locators = HomePageLocators(self.page)
         self.const = HomePageConst()
 
+    @allure.step('Verify page content is correct')
     def check_text(
             self,
     ) -> bool:
@@ -42,6 +45,7 @@ class HomePage(BasePage):
         locator = self.locators.card_description_locator(number)
         expect(locator).to_have_text(data)
 
+    @allure.step('Check is block {number} contains {title}, {description}')
     def check_block_data(
             self,
             title: str,
@@ -55,13 +59,13 @@ class HomePage(BasePage):
         self._check_block_title(title, number)
         self._check_block_description(description, number)
 
+    @allure.step('Check is image correct')
     def check_image(self) -> bool:
         locator = self.locators.img_locator
 
         expect(locator).to_have_attribute('alt', self.const.img_alt)
-        # assert locator.evaluate(
-        #     'img => img.complete && img.naturalWidth === 0')
 
+    @allure.step('Check image text')
     def check_image_text(self) -> bool:
         locator = self.locators.img_text_locator
         expect(locator).to_have_text(self.const.img_text)

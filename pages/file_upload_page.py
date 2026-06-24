@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 from pathlib import Path
+import allure
 
 from pages.base_page import BasePage
 from config.locators import FileUploadLocators
@@ -13,6 +14,7 @@ class FileUploadPage(BasePage):
         self.locators = FileUploadLocators(self.page)
         self.const = FileUploadConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -34,6 +36,7 @@ class FileUploadPage(BasePage):
         expect(upload_text).to_have_text(self.const.upload_text)
         expect(upload_btn).to_have_text(self.const.btn_text)
 
+    @allure.step('Upload test file {data}')
     def upload_test_file(
             self,
             data: str = FileUploadConst.file_name,
@@ -43,6 +46,7 @@ class FileUploadPage(BasePage):
 
         locator.set_input_files(path)
 
+    @allure.step('Remove uploaded file {data}')
     def remove_file(
             self,
             data: int,
@@ -50,6 +54,7 @@ class FileUploadPage(BasePage):
         locator = self.locators.remove_file_btn_locators(data)
         locator.click()
 
+    @allure.step('Check is amount of uploaded files is {data}')
     def check_amount_of_uploaded_files(
             self,
             data: int,
@@ -59,12 +64,14 @@ class FileUploadPage(BasePage):
 
         expect(locator).to_have_text(txt)
 
+    @allure.step('Check is amount of uploaded files is not shown')
     def amount_of_uploaded_files_is_not_shown(self) -> bool:
         text = self.const.amount_format.format(1)
         locator = self.locators.upload_amount_locator
 
         expect(locator).not_to_have_text(text)
 
+    @allure.step('Check is uploaded file {number} has name {file_name}')
     def check_file_name(
             self,
             number: int,

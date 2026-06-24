@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 import logging
+import allure
 
 from pages.base_page import BasePage
 from config.locators import DynamicTableLocators
@@ -15,6 +16,7 @@ class DynamicTablePage(BasePage):
         self.locators = DynamicTableLocators(self.page)
         self.const = DynamicTableConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -30,6 +32,7 @@ class DynamicTablePage(BasePage):
         expect(bullet2).to_have_text(self.const.bullet2)
         expect(h4_2).to_have_text(self.const.h4_title2)
 
+    @allure.step('Check is table data as expected')
     def check_is_data_as_expected(self) -> bool:
 
         # Get locators

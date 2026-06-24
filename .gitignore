@@ -219,3 +219,6 @@ __marimo__/
 
 # Test files
 test_files/sample.pdf
+
+# allure results
+allure-results/*

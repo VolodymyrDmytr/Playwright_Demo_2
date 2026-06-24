@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect, Locator   # , TimeoutError
 import playwright.sync_api
+import allure
 
 from pages.base_page import BasePage
 from config.locators import VisibilityLocators
@@ -13,6 +14,7 @@ class VisibilityPage(BasePage):
         self.locators = VisibilityLocators(self.page)
         self.const = VisibilityConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -56,10 +58,12 @@ class VisibilityPage(BasePage):
         expect(btn_info3).to_have_text(self.const.btn_info_3)
         expect(btn_info4).to_have_text(self.const.btn_info_4)
 
+    @allure.step('Click on hide button')
     def click_hide_btn(self) -> None:
         locator = self.locators.blue_btn_locator
         locator.click()
 
+    @allure.step('Check are buttons in correct visibility status')
     def check_are_buttons_in_correct_visibility(self) -> bool:
         hide = self.locators.blue_btn_locator
         removed = self.locators.red_btn_locator

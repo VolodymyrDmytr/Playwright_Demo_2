@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 import logging
+import allure
 
 from pages.base_page import BasePage
 from config.locators import VerifyTextLocators
@@ -15,6 +16,7 @@ class VerifyTextPage(BasePage):
         self.locators = VerifyTextLocators(self.page)
         self.const = VerifyTextConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text1 = self.locators.text_locators(1)
@@ -46,6 +48,7 @@ class VerifyTextPage(BasePage):
         expect(h4_2).to_have_text(self.const.h4_title2)
         expect(text_to_find).to_have_text(self.const.text_to_find)
 
+    @allure.step('Find text')
     def find_text(self) -> bool:
         locator = self.locators.find_by_text(self.const.text_to_find)
         logger.debug('Actual text: %s', locator.text_content())

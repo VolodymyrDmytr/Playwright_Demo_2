@@ -1,5 +1,6 @@
 import pytest
 from playwright.sync_api import Page
+import allure
 
 # Support method
 from config.file_installer import install_file_if_it_is_not_exist as file_inst
@@ -286,3 +287,20 @@ def css(page: Page) -> object:
     css.click_on_link('CSS Selectors')
 
     yield css
+
+
+@pytest.fixture(autouse=True)
+def screenshot_on_fail(page: Page, request):
+
+    yield
+
+    rep = getattr(request.node, 'rep_call', None)
+
+    if rep and rep.failed:
+        screenshot = page.screenshot(full_page=True)
+
+        allure.attach(
+            screenshot,
+            name='failure_screenshot',
+            attachment_type=allure.attachment_type.PNG,
+        )

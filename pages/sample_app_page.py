@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.locators import SampleAppLocators
@@ -12,6 +13,7 @@ class SampleAppPage(BasePage):
         self.locators = SampleAppLocators(self.page)
         self.const = SampleAppConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -21,6 +23,7 @@ class SampleAppPage(BasePage):
         expect(text).to_have_text(self.const.text)
         expect(btn).to_have_text(self.const.btn_text)
 
+    @allure.step('Fill form, name({name}) and password({password})')
     def fill_form(
             self,
             name: str,
@@ -32,10 +35,12 @@ class SampleAppPage(BasePage):
         name_locator.fill(name)
         password_locator.fill(password)
 
+    @allure.step('Click on Apply button')
     def click_on_btn(self) -> None:
         locator = self.locators.btn_locator
         locator.click()
 
+    @allure.step('Check {data} info text')
     def check_info_text_default_error(
             self,
             data: str,
@@ -61,6 +66,7 @@ class SampleAppPage(BasePage):
 
         expect(locator).to_have_text(expected_text)
 
+    @allure.step('Check success info text')
     def check_success_info_text(
             self,
             data: str,

@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.locators import AlertsLocators
@@ -12,6 +13,7 @@ class AlertsPage(BasePage):
         self.locators = AlertsLocators(self.page)
         self.const = AlertsConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -33,21 +35,26 @@ class AlertsPage(BasePage):
         expect(btn2).to_have_text(self.const.btn2)
         expect(btn3).to_have_text(self.const.btn3)
 
+    @allure.step('Click on Alert button')
     def click_alert_btn(self) -> None:
         locator = self.locators.alert_btn_locator
         locator.click()
 
+    @allure.step('Click on Confirm button')
     def click_confirm_btn(self) -> None:
         locator = self.locators.confirm_btn_locator
         locator.click()
 
+    @allure.step('Click on Prompt button')
     def click_prompt_btn(self) -> None:
         locator = self.locators.prompt_btn_locator
         locator.click()
 
+    @allure.step('Accept dialog')
     def accept_dialog(self) -> None:
         self.page.on('dialog', lambda d: d.accept())
 
+    @allure.step('Cancel dialog')
     def cancel_dialog(self) -> None:
         self.page.on('dialog', lambda d: d.dismiss())
 
@@ -58,18 +65,21 @@ class AlertsPage(BasePage):
     ) -> bool:
         assert dialog.message == text
 
+    @allure.step('Check is dialog text {text}')
     def check_dialog_text(
             self,
             text: str,
     ) -> bool:
         self.page.on('dialog', lambda d: self._assert_dialog_text(d, text))
 
+    @allure.step('Accept prompt')
     def accept_prompt(
             self,
             data: str,
     ) -> None:
         self.page.on('dialog', lambda d: d.accept(data))
 
+    @allure.step('Canceling prompt')
     def cancel_prompt(
             self,
             data: str,

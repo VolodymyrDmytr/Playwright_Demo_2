@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect, Locator
 import playwright.sync_api
+import allure
 
 from pages.base_page import BasePage
 from config.locators import CSSSelectorsLocators
@@ -13,6 +14,7 @@ class CSSSelectorsPage(BasePage):
         self.locators = CSSSelectorsLocators(self.page)
         self.const = CSSSelectorsConst()
 
+    @allure.step('Try to click')
     def _try_to_click(
             self,
             data: Locator,
@@ -24,6 +26,7 @@ class CSSSelectorsPage(BasePage):
         else:
             return False
 
+    @allure.step('Verify main page content is correct')
     def check_main_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -42,6 +45,7 @@ class CSSSelectorsPage(BasePage):
         expect(h4_2).to_have_text(self.const.h4_title2)
 
     # 1
+    @allure.step('Verify block 1 content is correct')
     def check_b1_content(self) -> bool:
         h5 = self.locators.h5_locators(1)
         btn = self.locators.b1_btn_locator
@@ -49,11 +53,13 @@ class CSSSelectorsPage(BasePage):
         expect(h5).to_have_text(self.const.h5_1)
         expect(btn).to_have_text(self.const.h5_1_btn)
 
+    @allure.step('Block 1. Click on Button')
     def b1_click_on_btn(self) -> None:
         locator = self.locators.b1_btn_locator
         locator.click()
 
     # 2
+    @allure.step('Verify block 2 content is correct')
     def check_b2_content(self) -> bool:
         h5 = self.locators.h5_locators(2)
         btn1 = self.locators.b2_btn1_locator
@@ -65,19 +71,23 @@ class CSSSelectorsPage(BasePage):
         expect(btn2).to_have_text(self.const.h5_2_btn2)
         expect(btn3).to_have_text(self.const.h5_2_btn3)
 
+    @allure.step('Block 2. Click on Button 1')
     def b2_click_on_btn1(self) -> None:
         locator = self.locators.b2_btn1_locator
         locator.click()
 
+    @allure.step('Block 2. Click on Button 2')
     def b2_click_on_btn2(self) -> None:
         locator = self.locators.b2_btn2_locator
         locator.click()
 
+    @allure.step('Block 2. Click on Button 3')
     def b2_click_on_btn3(self) -> None:
         locator = self.locators.b2_btn3_locator
         locator.click()
 
     # 3
+    @allure.step('Verify block 3 content is correct')
     def check_b3_content(self) -> bool:
         h5 = self.locators.h5_locators(3)
         link = self.locators.b3_link_locator
@@ -89,6 +99,8 @@ class CSSSelectorsPage(BasePage):
         expect(chip1).to_have_text(self.const.h5_3_chips1)
         expect(chip2).to_have_text(self.const.h5_3_chips2)
 
+    @allure.step(
+            'Block 3. Fill username ({username}) and email ({email}) fields')
     def b3_fill_fields(
             self,
             username: str,
@@ -100,6 +112,8 @@ class CSSSelectorsPage(BasePage):
         name_locator.fill(username)
         email_locator.fill(email)
 
+    @allure.step(
+            'Block 3. Check are username ({username}) and email ({email})')
     def b3_check_fields_data(
             self,
             username: str,
@@ -111,6 +125,7 @@ class CSSSelectorsPage(BasePage):
         expect(name_locator).to_have_value(username)
         expect(email_locator).to_have_value(email)
 
+    @allure.step('Block 3. Click on links')
     def b3_click_on_link(self) -> None:
         locator = self.locators.b3_link_locator
 
@@ -122,6 +137,7 @@ class CSSSelectorsPage(BasePage):
         expect(new_page).to_have_title(self.const.title)
         expect(new_page).to_have_url(self.const.link)
 
+    @allure.step('Block 3. Check is {chip} chip is {is_active}')
     def b3_check_chip_status(
             self,
             chip: int,
@@ -142,6 +158,7 @@ class CSSSelectorsPage(BasePage):
             expect(locator).to_have_attribute('data-status', 'inactive')
 
     # 4
+    @allure.step('Verify block 4 content is correct')
     def check_b4_content(self) -> bool:
         h5 = self.locators.h5_locators(4)
         bullet1 = self.locators.b4_bullet_locators(1)
@@ -160,6 +177,7 @@ class CSSSelectorsPage(BasePage):
         expect(p3).to_have_text(self.const.h5_4_p3)
 
     # 5
+    @allure.step('Verify block 5 content is correct')
     def check_b5_content(self) -> bool:
         h5 = self.locators.h5_locators(5)
 
@@ -176,6 +194,7 @@ class CSSSelectorsPage(BasePage):
                 expect(locator).to_have_text(cell_data)
 
     # 6
+    @allure.step('Verify block 6 content is correct')
     def check_b6_content(self) -> bool:
         h5 = self.locators.h5_locators(6)
         btn1 = self.locators.b6_btn_visible_locator
@@ -193,31 +212,38 @@ class CSSSelectorsPage(BasePage):
         expect(btn5).to_have_text(self.const.h5_6_btn5)
         expect(btn6).to_have_text(self.const.h5_6_btn6)
 
+    @allure.step('Block 6. Check is button 1 visible')
     def check_is_btn1_visible(self) -> bool:
         locator = self.locators.b6_btn_visible_locator
         expect(locator).to_be_visible()
 
+    @allure.step('Block 6. Check is button 2 not displayed')
     def check_is_bnt2_not_displayed(self) -> bool:
         locator = self.locators.b6_btn_not_displayed_locator
         expect(locator).not_to_be_disabled()
 
+    @allure.step('Block 6. Check is button 3 not visible')
     def check_is_bnt3_not_visible(self) -> bool:
         locator = self.locators.b6_btn_not_visible_locator
         expect(locator).not_to_be_visible()
 
+    @allure.step('Block 6. Check is button 4 not visible')
     def check_is_bnt4_not_visible(self) -> bool:
         locator = self.locators.b6_btn_hidden_overflow_locator
         self._try_to_click(locator)
 
+    @allure.step('Block 6. Check is button 5 hidden')
     def check_is_bnt5_to_be_hidden(self) -> bool:
         locator = self.locators.b6_btn_hidden_locator
         expect(locator).to_have_css('opacity', '0')
 
+    @allure.step('Block 6. Check is button 6 offscreen')
     def check_is_bnt6_to_be_offscreen(self) -> bool:
         locator = self.locators.b6_btn_offscreen_locator
         expect(locator).not_to_be_in_viewport()
 
     # 7
+    @allure.step('Verify block 7 content is correct')
     def check_b7_content(self) -> bool:
         h5 = self.locators.h5_locators(7)
         text = self.locators.b7_text_locator
@@ -237,10 +263,11 @@ class CSSSelectorsPage(BasePage):
         expect(title3).to_have_text(self.const.h5_7_title3)
         expect(btn3).to_have_text(self.const.h5_7_btn3)
 
+    @allure.step('Block 7. Click on button on {data} level')
     def b7_click_on_btn(
             self,
             data: int,
-    ) -> None | False:
+    ) -> bool | None:
         if data == 1:
             locator = self.locators.b7_1_btn_locator
         elif data == 2:
@@ -265,6 +292,7 @@ class CSSSelectorsPage(BasePage):
         else:
             return Locator()
 
+    @allure.step('Block 7. Fill field on {level} level with data: {data}')
     def b7_fill_field(
             self,
             level: int,
@@ -273,6 +301,7 @@ class CSSSelectorsPage(BasePage):
         locator = self._b7_field_locators(level)
         locator.fill(data)
 
+    @allure.step('Block 7. Check is field on {level} level has data: {data}')
     def b7_check_field(
             self,
             level: int,
@@ -281,6 +310,7 @@ class CSSSelectorsPage(BasePage):
         locator = self._b7_field_locators(level)
         expect(locator).to_have_value(data)
 
+    @allure.step('Block 7. Check status on 3rd level')
     def b7_check_status(self) -> bool:
         locator = self.locators.b7_3_status_locator
         expect(locator).to_have_text(self.const.h5_7_status)

@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 import playwright.sync_api
+import allure
 
 from pages.base_page import BasePage
 from config.locators import AutoWaitLocators
@@ -14,6 +15,7 @@ class AutoWaitPage(BasePage):
         self.const = AutoWaightConst()
         self.timeout = 11000
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -43,10 +45,11 @@ class AutoWaitPage(BasePage):
         expect(btn2).to_have_text(self.const.btn5)
         expect(btn3).to_have_text(self.const.btn10)
 
+    @allure.step('Change target element to {data}')
     def change_target_element(
             self,
             data: str,
-    ) -> None | False:
+    ) -> bool | None:
         """Select target element
 
         Args:
@@ -62,6 +65,7 @@ class AutoWaitPage(BasePage):
         else:
             return False
 
+    @allure.step('Check is status text: {data}')
     def check_status_text(
             self,
             data: str,
@@ -96,6 +100,7 @@ class AutoWaitPage(BasePage):
 
         expect(locator).to_have_text(text)
 
+    @allure.step('Change targets attributes')
     def change_target(
             self,
             data: str,
@@ -123,10 +128,11 @@ class AutoWaitPage(BasePage):
         locator = self.locators.check_boxes_locators(option)
         locator.click()
 
+    @allure.step('Click on Apply button with {data}s timer')
     def click_apply(
             self,
             data: int,
-    ) -> None | False:
+    ) -> bool | None:
         """Click on Apply button with exact timer
 
         Args:
@@ -146,10 +152,12 @@ class AutoWaitPage(BasePage):
 
         locator.click()
 
+    @allure.step('Click on Start button')
     def click_on_target(self) -> None:
         locator = self.locators.target_locator
         locator.click(timeout=self.timeout)
 
+    @allure.step('Fill target with data ({data})')
     def fill_target(
             self,
             data: str,
@@ -158,6 +166,7 @@ class AutoWaitPage(BasePage):
         locator.click(force=True, timeout=self.timeout)
         locator.fill(data, timeout=self.timeout)
 
+    @allure.step('Check if the target has {data}')
     def check_target_data(
             self,
             data: str,
@@ -165,14 +174,16 @@ class AutoWaitPage(BasePage):
         locator = self.locators.target_locator
         expect(locator).to_have_value(data)
 
+    @allure.step('Check if the target has correct text.')
     def check_targets_text(self) -> bool:
         locator = self.locators.target_locator
         expect(locator).to_have_text(self.const.target_label)
 
+    @allure.step('Select target option {data}')
     def select_target_option(
             self,
             data: int,
-    ) -> None | False:
+    ) -> bool | None:
         """Selects item option
 
         Args:
@@ -189,6 +200,7 @@ class AutoWaitPage(BasePage):
         locator.select_option(self.const.target_options_format.format(data),
                               timeout=self.timeout)
 
+    @allure.step('Check that target is not visible')
     def check_targets_visibility(self) -> bool:
         """Checks is target is not visible
 
@@ -198,6 +210,7 @@ class AutoWaitPage(BasePage):
         locator = self.locators.target_locator
         expect(locator).not_to_be_visible()
 
+    @allure.step('Check that target is hidden')
     def check_is_targets_hidden(self) -> bool:
         """Checks is target is hidden
 
@@ -207,14 +220,17 @@ class AutoWaitPage(BasePage):
         locator = self.locators.target_locator
         expect(locator).to_be_hidden()
 
+    @allure.step('Check that target is disabled')
     def check_is_target_disabled(self) -> bool:
         locator = self.locators.target_locator
         expect(locator).to_be_disabled()
 
+    @allure.step('Check that target is editable')
     def check_is_target_editable(self) -> bool:
         locator = self.locators.target_locator
         expect(locator).to_be_editable()
 
+    @allure.step('Check that target is not clickable')
     def check_target_is_not_clickable(self) -> bool:
         locator = self.locators.target_locator
         try:

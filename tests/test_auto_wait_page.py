@@ -1,4 +1,6 @@
 import pytest
+import allure
+
 from config.const import AutoWaightConst
 
 const = AutoWaightConst()
@@ -6,6 +8,7 @@ const = AutoWaightConst()
 
 @pytest.mark.auto_wait_page
 def test_page_content(wait):
+    allure.dynamic.title('Test page content')
     wait.check_page_content()
     wait.check_status_text('default')
 
@@ -16,6 +19,8 @@ def test_page_content(wait):
     const.target_element_list,
 )
 def test_status_text(wait, target_type):
+    allure.dynamic.title('Test status text')
+
     wait.change_target_element(target_type)
     wait.check_status_text('none')
 
@@ -40,6 +45,8 @@ def test_status_text(wait, target_type):
     const.target_element_list,
 )
 def test_target(wait, target_type):
+    allure.dynamic.title(f'Test target. Type = {target_type}')
+
     wait.change_target_element(target_type)
 
     wait.change_target('visible')
@@ -73,6 +80,8 @@ def test_target(wait, target_type):
     ['Input', 'Textarea'],
 )
 def test_target_text_fields(wait, target_type):
+    allure.dynamic.title('Test target text fields. Type = {target_type}')
+
     data = 'Test Data'
 
     wait.change_target_element(target_type)
@@ -88,6 +97,8 @@ def test_target_text_fields(wait, target_type):
     [1, 2, 3],
 )
 def test_target_select(wait, option):
+    allure.dynamic.title('Test target select. Select = {option}')
+
     wait.change_target_element('Select')
     wait.change_target('editable')
     wait.click_apply(5)

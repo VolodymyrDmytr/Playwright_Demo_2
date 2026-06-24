@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.const import DynamicIdConst
@@ -12,6 +13,7 @@ class DynamicIdPage(BasePage):
         self.locators = DynamicIdLoators(self.page)
         self.const = DynamicIdConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_text(self) -> bool:
         h3_locator = self.locators.h3_locator
         text_locator = self.locators.text_locator
@@ -29,5 +31,6 @@ class DynamicIdPage(BasePage):
         expect(bullet_2nd).to_have_text(self.const.bullet2)
         expect(btn).to_have_text(self.const.btn_text)
 
+    @allure.step('Click on button')
     def click_on_btn(self) -> None:
         self.locators.button_locator.click()

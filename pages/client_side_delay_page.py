@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 from pages.base_page import BasePage
 from config.locators import ClientSideDelayLocators
@@ -12,6 +13,7 @@ class ClientSideDelayPage(BasePage):
         self.locators = ClientSideDelayLocators(self.page)
         self.const = ClientSideDelayConst()
 
+    @allure.step('Verify page content is correct')
     def check_page_content(self) -> bool:
         h3 = self.locators.h3_locator
         text = self.locators.text_locator
@@ -29,15 +31,18 @@ class ClientSideDelayPage(BasePage):
         expect(h4_2).to_have_text(self.const.h4_title2)
         expect(btn).to_have_text(self.const.btn_text)
 
+    @allure.step('Click on button')
     def click_on_button(self) -> None:
         locator = self.locators.btn_locator
         locator.click()
 
+    @allure.step('Check success text')
     def check_success_text(self) -> bool:
         locator = self.locators.success_txt_locator
         expect(locator).to_have_text(self.const.success_text,
                                      timeout=self.const.timeout)
 
+    @allure.step('Click on text')
     def click_on_text(self) -> None:
         locator = self.locators.success_txt_locator
         locator.click()
