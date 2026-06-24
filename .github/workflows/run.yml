@@ -119,7 +119,7 @@ jobs:
     - name: Install poetry
       run: pip install poetry
     - name: Install dependencies
-      run: poetry install
+      run: poetry install --no-root
     - name: Install Browsers
       run: playwright install
 
