@@ -1,0 +1,286 @@
+name: Test Runner
+
+on: 
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: What to run?
+        required: true
+        type: choice
+        options:
+          - All
+          - home_page
+          - dynamic_id_page
+          - class_attribute_page
+          - hidden_layers_page
+          - load_delays_page
+          - ajax_data_page
+          - client_side_delay_page
+          - click_page
+          - text_input_page
+          - scrollbars_page
+          - dynamic_table_page
+          - verify_text_page
+          - progress_bar_page
+          - visibility_page
+          - sample_app_page
+          - mouse_over_page
+          - nbsp_page
+          - overlapped_element_page
+          - shadow_dom_page
+          - alerts_page
+          - file_upload_page
+          - animated_button_page
+          - disabled_input_page
+          - auto_wait_page
+          - frames_page
+          - clear_input_page
+          - scroll_to_click_page
+          - css_selectors_page
+      skip_history_download:
+        description: Download last run results (Old results will not be used in future runs)
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  download-artifacts:
+    if: ${{ inputs.skip_history_download }}
+    name: Downloading runs history
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+     - name: Install Python
+       uses: actions/setup-python@v4
+       with:
+        python-version: "3.14"
+     - name: Download artifacts
+       run: > 
+        ARTIFACT_ID=$(curl -L 
+        -H "Accept: application/vnd.github+json"
+        -H "X-GitHub-Api-Version: 2022-11-28"
+        "https://api.github.com/repos/VolodymyrDmytr/Playwright_Demo_2/actions/artifacts?name=allure-results"
+        | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id'])")
+        &&
+        curl -L
+        -H "Accept: application/vnd.github+json"
+        -H "X-GitHub-Api-Version: 2022-11-28"
+        -H "Authorization: Bearer ${{ secrets.Token }}"
+        "https://api.github.com/repos/VolodymyrDmytr/Playwright_Demo_2/actions/artifacts/$ARTIFACT_ID/zip"
+        -o artifacts.zip
+        &&
+        PAGE_ID=$(curl -L 
+        -H "Accept: application/vnd.github+json"
+        -H "X-GitHub-Api-Version: 2022-11-28"
+        "https://api.github.com/repos/VolodymyrDmytr/Playwright_Demo_2/actions/artifacts?name=github-pages"
+        | python -c "import sys, json; print(json.load(sys.stdin)['artifacts'][0]['id'])")
+        &&
+        curl -L
+        -H "Accept: application/vnd.github+json"
+        -H "X-GitHub-Api-Version: 2022-11-28"
+        -H "Authorization: Bearer ${{ secrets.Token }}"
+        "https://api.github.com/repos/VolodymyrDmytr/Playwright_Demo_2/actions/artifacts/$PAGE_ID/zip"
+        -o pages.zip
+     - name: Unpack allure results
+       run: mkdir allure-results && unzip artifacts -d allure-results
+     - name: Unpack pages
+       run: mkdir pages page_1 && unzip pages -d page_1 && tar -xvf page_1/artifact.tar -C pages
+     - name: Store pages
+       run: cp pages/history/* allure-results && cp -r pages/history allure-results
+     - name: Check tree
+       run: tree
+     - name: Store history
+       uses: actions/upload-artifact@v4
+       with:
+        name: allure-results
+        path: 
+          allure-results
+        retention-days: 1
+
+  run-tests:
+    if: ${{ always() && needs.download-artifacts.result == 'success' || needs.download-artifacts.result == 'skipped' }}
+
+    name: Run tests
+    runs-on: ubuntu-latest
+    needs: download-artifacts
+
+    steps:
+    - name: Install project
+      uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.14"
+    - name: Install requirements
+      run: pip install -r requirements.txt
+    - name: Install Browsers
+      run: playwright install
+
+    - name: Run All tests
+      if: "github.event.inputs.deployment_target == 'All'"
+      run: poetry run pytest --alluredir=allure-results
+      continue-on-error: true
+    - name: Run home_page tests
+      if: "github.event.inputs.deployment_target == 'home_page'"
+      run: poetry run pytest -m home_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run dynamic_id_page tests
+      if: "github.event.inputs.deployment_target == 'dynamic_id_page'"
+      run: poetry run pytest -m dynamic_id_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run class_attribute_page tests
+      if: "github.event.inputs.deployment_target == 'class_attribute_page'"
+      run: poetry run pytest -m class_attribute_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run hidden_layers_page tests
+      if: "github.event.inputs.deployment_target == 'hidden_layers_page'"
+      run: poetry run pytest -m hidden_layers_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run load_delays_page tests
+      if: "github.event.inputs.deployment_target == 'load_delays_page'"
+      run: poetry run pytest -m load_delays_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run ajax_data_page tests
+      if: "github.event.inputs.deployment_target == 'ajax_data_page'"
+      run: poetry run pytest -m ajax_data_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run click_page tests
+      if: "github.event.inputs.deployment_target == 'click_page'"
+      run: poetry run pytest -m click_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run text_input_page tests
+      if: "github.event.inputs.deployment_target == 'text_input_page'"
+      run: poetry run pytest -m text_input_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run scrollbars_page tests
+      if: "github.event.inputs.deployment_target == 'scrollbars_page'"
+      run: poetry run pytest -m scrollbars_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run dynamic_table_page tests
+      if: "github.event.inputs.deployment_target == 'dynamic_table_page'"
+      run: poetry run pytest -m dynamic_table_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run verify_text_page tests
+      if: "github.event.inputs.deployment_target == 'verify_text_page'"
+      run: poetry run pytest -m verify_text_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run progress_bar_page tests
+      if: "github.event.inputs.deployment_target == 'progress_bar_page'"
+      run: poetry run pytest -m progress_bar_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run visibility_page tests
+      if: "github.event.inputs.deployment_target == 'visibility_page'"
+      run: poetry run pytest -m visibility_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run sample_app_page tests
+      if: "github.event.inputs.deployment_target == 'sample_app_page'"
+      run: poetry run pytest -m sample_app_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run mouse_over_page tests
+      if: "github.event.inputs.deployment_target == 'mouse_over_page'"
+      run: poetry run pytest -m mouse_over_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run nbsp_page tests
+      if: "github.event.inputs.deployment_target == 'nbsp_page'"
+      run: poetry run pytest -m nbsp_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run overlapped_element_page tests
+      if: "github.event.inputs.deployment_target == 'overlapped_element_page'"
+      run: poetry run pytest -m overlapped_element_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run shadow_dom_page tests
+      if: "github.event.inputs.deployment_target == 'shadow_dom_page'"
+      run: poetry run pytest -m shadow_dom_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run alerts_page tests
+      if: "github.event.inputs.deployment_target == 'alerts_page'"
+      run: poetry run pytest -m alerts_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run file_upload_page tests
+      if: "github.event.inputs.deployment_target == 'file_upload_page'"
+      run: poetry run pytest -m file_upload_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run animated_button_page tests
+      if: "github.event.inputs.deployment_target == 'animated_button_page'"
+      run: poetry run pytest -m animated_button_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run disabled_input_page tests
+      if: "github.event.inputs.deployment_target == 'disabled_input_page'"
+      run: poetry run pytest -m disabled_input_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run auto_wait_page tests
+      if: "github.event.inputs.deployment_target == 'auto_wait_page'"
+      run: poetry run pytest -m auto_wait_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run frames_page tests
+      if: "github.event.inputs.deployment_target == 'frames_page'"
+      run: poetry run pytest -m frames_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run clear_input_page tests
+      if: "github.event.inputs.deployment_target == 'clear_input_page'"
+      run: poetry run pytest -m clear_input_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run scroll_to_click_page tests
+      if: "github.event.inputs.deployment_target == 'scroll_to_click_page'"
+      run: poetry run pytest -m scroll_to_click_page --alluredir=allure-results
+      continue-on-error: true
+    - name: Run css_selectors_page tests
+      if: "github.event.inputs.deployment_target == 'css_selectors_page'"
+      run: poetry run pytest -m css_selectors_page --alluredir=allure-results
+      continue-on-error: true
+
+    - name: Download old artifacts
+      if: "github.event.inputs.skip_history_download == 'true'"
+      continue-on-error: true
+      uses: actions/download-artifact@v4
+      with:
+        name: allure-results
+        path:
+          history
+    - name: Check tree
+      run: tree
+    - name: Inject old runs
+      if: "github.event.inputs.skip_history_download == 'true'"
+      continue-on-error: true
+      run: cp -r history/* allure-results/
+    - name: Check tree
+      run: tree
+    - name: Store allure results
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-results
+        path: 
+          allure-results
+        retention-days: 1
+
+  publish-allure:
+    if: ${{ always() && needs.run-tests.result == 'success' }}
+  
+    name: Generate and Publish allure report
+    runs-on: ubuntu-latest
+    needs: run-tests
+    environment:
+      name: github-pages
+  
+    steps:
+      - name: Install Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
+      - name: Install allure 2.41.0
+        run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.41.0/allure-2.41.0.tgz && sudo tar -zxvf allure-2.41.0.tgz -C /opt/ && sudo ln -s /opt/allure-2.41.0/bin/allure /usr/bin/allure
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+      - name: Generate allure report
+        run: allure generate -c allure-results -o _site
+      - name: Upload Pages artifacts
+        uses: actions/upload-pages-artifact@v4
+      - name: Deploy results
+        id: deployment
+        uses: actions/deploy-pages@v4
