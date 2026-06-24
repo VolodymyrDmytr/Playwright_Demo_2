@@ -121,7 +121,7 @@ jobs:
     - name: Install dependencies
       run: poetry install --no-root
     - name: Install Browsers
-      run: playwright install
+      run: poetry run playwright install
 
     - name: Run All tests
       if: "github.event.inputs.deployment_target == 'All'"
